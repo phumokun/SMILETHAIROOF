@@ -112,7 +112,7 @@
                                             <div class="dashboard-message">
                                                 <span class="new-dashboard-item">New</span>
                                                 <div class="dashboard-listing-table-image">
-                                                    <a><img src="images/city/<?php echo $row['picture']; ?>" alt=""></a>
+                                                    <a><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" alt=""></a>
                                                 </div>
                                                 <div class="dashboard-listing-table-text">
                                                         

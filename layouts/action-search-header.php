@@ -70,7 +70,7 @@ if(isset($_POST['search'])){
         <div class="listing-item">
             <article class="geodir-category-listing fl-wrap">
                 <div class="geodir-category-img">
-                    <a href="#"><img src="images/city/<?php echo $row['picture']; ?>" alt=""></a>
+                    <a href="#"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" alt=""></a>
                     <div class="listing-avatar"><a href="#"><img src="images/img_users/<?php echo $row['picture_users']; ?>" alt=""></a>
                         <span class="avatar-tooltip">เพิ่มโดย<strong> <?php echo $row['name']; ?></strong></span>
                     </div>

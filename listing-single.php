@@ -77,7 +77,7 @@
                 <div class="content">
                     <!--  section  -->
                     <section class="list-single-hero" data-scrollax-parent="true" id="sec1">
-                        <div class="bg par-elem "  data-bg="images/city/<?php echo $row['picture']; ?>" data-scrollax="properties: { translateY: '30%' }"></div>
+                        <div class="bg par-elem "  data-bg="images/images_hotel_users/<?php echo $row['picture']; ?>" data-scrollax="properties: { translateY: '30%' }"></div>
                         <div class="list-single-hero-title fl-wrap">
                             <div class="container">
                                 <div class="row">

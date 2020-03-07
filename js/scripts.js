@@ -1,4 +1,5 @@
 //   all ------------------
+
 function initCitybook() {
     "use strict";
     //   loader ------------------

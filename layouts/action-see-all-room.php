@@ -53,7 +53,7 @@
         <div class="listing-item">
             <article class="geodir-category-listing fl-wrap">
                 <div class="geodir-category-img">
-                    <a href="listing-single.html"><img src="images/city/<?php echo $row['picture']; ?>" alt=""></a>
+                    <a href="listing-single.html"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" alt=""></a>
                     <div class="listing-avatar"><a href="author-single.html"><img src="images/img_users/<?php echo $row['picture_users']; ?>" alt=""></a>
                         <span class="avatar-tooltip">เพิ่มโดย<strong><?php echo $row['name']; ?></strong></span>
                     </div>
