@@ -216,66 +216,31 @@
                                         <div class="list-single-main-media fl-wrap">
                                             <!-- gallery-items   -->
                                             <div class="gallery-items grid-small-pad  list-single-gallery three-coulms lightgallery">
+                                                <?php 
+
+                                                $upmi = "SELECT * FROM uploads_multi_images as umi
+                                                            WHERE umi.ref_host = $id";
+                                                
+                                                $upmi_re = mysqli_query($conn, $upmi);
+                                                
+                                                while ($row_upmi = mysqli_fetch_array($upmi_re)) { 
+                                                    
+                                                ?>
                                                 <!-- 1 -->
                                                 <div class="gallery-item ">
                                                     <div class="grid-item-holder">
                                                         <div class="box-item">
-                                                            <img  src="images/gal/1.jpg"   alt="">
-                                                            <a href="images/gal/1.jpg" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+                                                            <img  src="images/images_hotel_users/<?php echo $row_upmi['picture_hotel']; ?>"   alt="">
+                                                            <a href="images/images_hotel_users/<?php echo $row_upmi['picture_hotel']; ?>" class="gal-link popup-image"><i class="fa fa-search"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <?php 
+                                                    } 
+                                                ?>
                                                 <!-- 1 end -->
-                                                <!-- 2 -->
-                                                <div class="gallery-item">
-                                                    <div class="grid-item-holder">
-                                                        <div class="box-item">
-                                                            <img  src="images/gal/1.jpg"   alt="">
-                                                            <a href="images/gal/1.jpg" class="gal-link popup-image"><i class="fa fa-search"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 2 end -->
-                                                <!-- 3 -->
-                                                <div class="gallery-item gallery-item-second">
-                                                    <div class="grid-item-holder">
-                                                        <div class="box-item">
-                                                            <img  src="images/gal/1.jpg"   alt="">
-                                                            <a href="images/gal/1.jpg" class="gal-link popup-image"><i class="fa fa-search"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 3 end -->
-                                                <!-- 4 -->
-                                                <div class="gallery-item">
-                                                    <div class="grid-item-holder">
-                                                        <div class="box-item">
-                                                            <img  src="images/gal/1.jpg"   alt="">
-                                                            <a href="images/gal/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 4 end -->
-                                                <!-- 5 -->
-                                                <div class="gallery-item">
-                                                    <div class="grid-item-holder">
-                                                        <div class="box-item">
-                                                            <img  src="images/gal/1.jpg"   alt="">
-                                                            <a href="images/gal/1.jpg" class="gal-link popup-image"><i class="fa fa-search"  ></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 5 end -->
-                                                <!-- 7 -->
-                                                <div class="gallery-item">
-                                                    <div class="grid-item-holder">
-                                                        <div class="box-item">
-                                                            <img  src="images/gal/1.jpg"   alt="">
-                                                            <div class="more-photos-button dynamic-gal"  data-dynamicPath="[{'src': 'images/gal/1.jpg'}, {'src': 'images/gal/1.jpg'},{'src': 'images/gal/1.jpg'}]">Other <span>4 photos</span><i class="far fa-long-arrow-right"></i></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 7 end -->
+
                                             </div>
                                             <!-- end gallery items -->                                          
                                         </div>
@@ -599,7 +564,7 @@
 
                                                         
                                                         $query = "SELECT * FROM room_in_hotel as inho
-                                                                    INNER JOIN type_bed as tb ON tb.type_bed = inho.type_bed
+                                                                        INNER JOIN type_bed as tb ON tb.type_bed = inho.type_bed
                                                                     WHERE inho.ref_id = $id
                                                                     GROUP BY inho.type_bed";
                                                         
