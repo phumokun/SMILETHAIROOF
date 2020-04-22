@@ -1,5 +1,5 @@
 CREATE TABLE `users_add_hotel` (
-  `id` int(10) NOT NULL AUTO_INCREMENT, 
+  `id_hotel` int(10) NOT NULL AUTO_INCREMENT, 
   `ref_id` varchar(50) NOT NULL,
   `name_hotel` varchar(150) NOT NULL,
   `type_hotel` varchar(250) NOT NULL,
@@ -10,12 +10,13 @@ CREATE TABLE `users_add_hotel` (
   `area` varchar(250) NOT NULL,
   `province` varchar(250) NOT NULL,
   `postal_code` varchar(250) NOT NULL,
-  `phone` varchar(250) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `phone_hotel` varchar(250) NOT NULL,
+  `email_hotel` varchar(50) NOT NULL,
   `longitude` varchar(500) NOT NULL,
   `latitude` varchar(250) NOT NULL,
   `detail_hotel` varchar(1000) NOT NULL,
   `option_hotel` varchar(250) NOT NULL,
+  `status_hotel` varchar(250) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
-    PRIMARY KEY (`id`) 
+    PRIMARY KEY (`id_hotel`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

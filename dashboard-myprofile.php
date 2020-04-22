@@ -13,7 +13,9 @@
         $query = "SELECT * FROM users
 				WHERE id = " . $id;
 		$result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_array($result); 
+        $row = mysqli_fetch_array($result);
+        
+        $userlevel = $row['userlevel'];
 
         // echo '<pre>';
         // print_r($row);

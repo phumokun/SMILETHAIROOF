@@ -29,30 +29,42 @@
             <!--footer-widget -->
             <div class="col-md-4">
                 <div class="footer-widget fl-wrap">
+
+                    <?php 
+
+                    $query = "SELECT * FROM users_add_hotel as addho 
+                                    INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
+                                WHERE addho.status_hotel = 'ผ่านการตรวจสอบ' 
+                                GROUP BY addho.ref_id";
+
+                    $result = mysqli_query($conn, $query); 
+
+
+                    ?>
+
                     <h3>โรงแรมที่ลงทะเบียนล่าสุด</h3>
                     <div class="widget-posts fl-wrap">
                         <ul>
+                            <!-- กำหนดให้หยุด while loop -->
+                            <?php 
+                            $i=1;
+                            while ($row = mysqli_fetch_array($result)) { 
+                                
+                            ?>
                             <li class="clearfix">
-                                <a href="#"  class="widget-posts-img"><img src="images/all/1-new.png" class="respimg" alt=""></a>
+                                <a href="listing-single.php?id=<?php echo $row['ref_id']; ?>"  class="widget-posts-img"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" class="respimg" alt=""></a>
                                 <div class="widget-posts-descr">
-                                    <a href="#" title="">โรงแรม1</a>
-                                    <span class="widget-posts-date"> 21 Mar 09.05 </span>
+                                    <a href="listing-single.php?id=<?php echo $row['ref_id']; ?>" title=""><?php echo $row['name_hotel']; ?></a>
+                                    <span class="widget-posts-date"><?php echo $row['create_date']; ?></span>
                                 </div>
                             </li>
-                            <li class="clearfix">
-                                <a href="#"  class="widget-posts-img"><img src="images/all/1-new.png" class="respimg" alt=""></a>
-                                <div class="widget-posts-descr">
-                                    <a href="#" title="">โรงแรม2</a>
-                                    <span class="widget-posts-date"> 7 Mar 18.21 </span>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <a href="#"  class="widget-posts-img"><img src="images/all/1-new.png" class="respimg" alt=""></a>
-                                <div class="widget-posts-descr">
-                                    <a href="#" title="">โรงแรม3</a>
-                                    <span class="widget-posts-date"> 7 Mar 16.42 </span>
-                                </div>
-                            </li>
+                            <?php 
+                                if($i>=2) {
+                                    break;
+                                    $i++;
+                                }
+                            } 
+                            ?>
                         </ul>
                     </div>
                 </div>

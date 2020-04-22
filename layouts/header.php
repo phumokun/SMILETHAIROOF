@@ -8,7 +8,11 @@
             <!-- dashboard-add-listing.php -->
             <!-- ใช้ If check เพื่อให้ลิงค์ส่งไปหน้าที่กำหนด -->
             <?php if (isset($_SESSION['email'])) {?>
-                <a href="dashboard-add-listing.php?id=<?php echo $_SESSION['id']; ?>" class="add-hotel">ลงทะเบียนที่พักของท่าน<span><i class="far fa-plus"></i></span></a>
+                        <?php if ($_SESSION['userlevel'] === 'hostel') { ?> 
+                            <a href="dashboard-listing-table.php?id=<?php echo $_SESSION['id']; ?>" class="add-hotel">เพิ่มห้องพักของท่าน<span><i class="far fa-plus"></i></span></a>
+                        <?php } else {?>
+                            <a href="dashboard-add-listing.php?id=<?php echo $_SESSION['id']; ?>" class="add-hotel">ลงทะเบียนที่พักของท่าน<span><i class="far fa-plus"></i></span></a>
+                        <?php } ?>   
             <?php } else { ?>
                 <a href="dashboard-add-listing.php" class="add-hotel">ลงทะเบียนที่พักของท่าน<span><i class="far fa-plus"></i></span></a>
             <?php } ?>
@@ -46,7 +50,10 @@
                 <!-- Dropdown เมนู -->
                 <ul>
                     <li><a href="dashboard-myprofile.php?id=<?php echo $_SESSION['id']; ?>">โปรไฟล์</a></li>
+                    <!-- เช็คว่าเป็น Hostel ไหม -->
+                    <?php if ($_SESSION['userlevel'] === "hostel") { ?>
                     <li><a href="dashboard-listing-table.php?id=<?php echo $_SESSION['id']; ?>">รายการที่พัก</a></li>
+                    <?php } ?>
                     <li><a href="dashboard-bookings.php?id=<?php echo $_SESSION['id']; ?>">ประวัติการจอง</a></li> 
                     <li><a href="logout.php">ออกจากระบบ</a></li>
                 </ul>
@@ -111,7 +118,7 @@
             <form action="listing2.php?act=search" method="post">
                 <div class="row">
                     <!-- header-search-input-item -->
-                    <div class="col-sm-4">
+                    <div class="col-sm-7">
                         <div class="col-list-search-input-item in-loc-dec fl-wrap not-vis-arrow">
                             <label>เมืองที่พัก</label>
                             <div class="listsearch-input-item">
@@ -133,12 +140,12 @@
                         <div class="header-search-input-item fl-wrap date-parent">
                             <label>วันที่ เข้า-ออก</label>
                             <span class="header-search-input-item-icon"><i class="fal fa-calendar-check"></i></span>
-                            <input type="text" placeholder="วันที่ต้องการพัก" name="header-search" value=""/>
+                            <input type="text" placeholder="วันที่ต้องการพัก" name="bookdates" value=""/>
                         </div>
                     </div>
                     <!-- header-search-input-item end -->                             
                     <!-- header-search-input-item -->
-                    <div class="col-sm-3">
+                    <!-- <div class="col-sm-3">
                         <div class="header-search-input-item fl-wrap">
                             <div class="quantity-item">
                                 <label>ห้อง</label>
@@ -159,7 +166,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- header-search-input-item end -->                             
                     <!-- header-search-input-item -->
                     <div class="col-sm-2">

@@ -88,12 +88,13 @@ session_start();
                                                     area,
                                                     province,
                                                     postal_code,
-                                                    phone,
-                                                    email,
+                                                    phone_hotel,
+                                                    email_hotel,
                                                     longitude,
                                                     latitude,
                                                     detail_hotel,
-                                                    option_hotel)
+                                                    option_hotel,
+                                                    status_hotel)
                         VALUE('" . $id . "',
                         '" . $name_hotel . "',
                         '" . $type_hotel . "',
@@ -109,7 +110,8 @@ session_start();
                         '" . $longitude . "',
                         '" . $latitude . "',
                         '" . $detail_hotel . "',
-                        '" . $option_hotel . "')";
+                        '" . $option_hotel . "',
+                        '" . "รอการตรวจสอบ" . "')";
 
         $result = mysqli_query($conn, $add_hotel);
 
@@ -169,6 +171,9 @@ session_start();
                 WHERE id = " . $id;
                 
         $result = mysqli_query($conn, $update_level);
+
+        // เปลี่ยนค่าใน session
+        $_SESSION['userlevel'] = "hostel";
 
         echo '<script> alert("การเพิ่มโรงแรมเสร็จสิ้น"); </script>';
         header('Refresh:0; url = ../dashboard-listing-table.php?id=' . $id);

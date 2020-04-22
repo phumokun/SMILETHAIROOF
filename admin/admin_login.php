@@ -25,12 +25,13 @@
 
 		//store name in php session
 		$_SESSION['admin_name'] = $row['name'];
+		$_SESSION['email'] = $row['email'];
 
 		//check whether there is result from table
 		if ($row['userlevel'] === "admin") {
 
 			echo '<script> alert("เข้าสู่ระบบจองที่พัก"); </script>';
-			header("location: books_room.php");
+			header("location: feed.php");
 
 		} else {
 			echo '<script> alert("E-mial หรือ Password ผิดพลาด กรุณา Login ใหม่อีกครั้ง"); </script>';

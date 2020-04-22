@@ -91,7 +91,7 @@
                                                 $query = "SELECT * FROM users_add_hotel as addho 
                                                                     RIGHT JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
                                                                     -- สร้าง WHERE เพื่อให้ Fetch ข้อมูลเฉพาะของ id นั้น ๆ 
-                                                                WHERE inho.ref_id = " .$id;
+                                                                WHERE inho.ref_id = $id AND addho.ref_id = $id";
  
                                                 // echo $query;
                                                 // exit();
@@ -127,11 +127,16 @@
                                                     
                                                     <span class="dashboard-listing-table-address"  style="margin-bottom: 10px;"><i class="far fa-map-marker"></i>
                                                         <!-- <a  href="#"> -->
-                                                        <a><?php echo "ต.",$row['sub_area']," อ.",$row['area']," จ.",$row['province']; ?></a></span>
+                                                        <a><?php echo "ต.",$row['sub_area']," อ.",$row['area']," ",$row['province']; ?></a></span>
                                                     
                                                     <ul class="dashboard-listing-table-opt  fl-wrap">
-                                                        <li><a href="dashboard-add-listing.php?id=<?php echo $row['id']; ?>&act=edit" class="edit-btn">แก้ไขข้อมูลห้อง<i class="fal fa-edit"></i></a></li>
-                                                        <li><a href="layouts/action-del-room-db.php?id=<?php echo $row['id']; ?>" class="del-btn">ลบห้องพัก<i class="fal fa-trash-alt"></i></a></li>
+                                                        <!-- ตวจสอบสถานะว่าโรงแรมได้รับอนุมัตแล้วหรือยัง -->
+                                                        <?php if ($row['status_hotel'] === "รอการตรวจสอบ") { ?>
+                                                            <li><a class="edit-btn"><?php echo $row['status_hotel']; ?><i class="fal fa-edit"></i></a></li>
+                                                        <?php } else { ?>
+                                                            <li><a href="dashboard-add-listing.php?id=<?php echo $row['id_room']; ?>&act=edit" class="edit-btn">แก้ไขข้อมูลห้องพัก<i class="fal fa-edit"></i></a></li>
+                                                        <?php } ?>
+                                                        <li><a href="layouts/action-del-room-db.php?id=<?php echo $row['id_room']; ?>" class="del-btn">ลบห้องพัก<i class="fal fa-trash-alt"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>

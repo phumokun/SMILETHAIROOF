@@ -1,15 +1,22 @@
 CREATE TABLE `books` (
-  `id` int(10) NOT NULL AUTO_INCREMENT, 
-  `ref_host` varchar(50) NOT NULL,
+  `id_bk` int(10) NOT NULL AUTO_INCREMENT, 
+  `ref_hotel` varchar(150) NOT NULL,
+  `ref_host` varchar(150) NOT NULL,
   `ref_room` varchar(150) NOT NULL,
   `ref_user` varchar(250) NOT NULL,
-  `name` varchar(250) NOT NULL,
-  `in` date NOT NULL,
-  `out` date NOT NULL,
+  `name_user` varchar(250) NOT NULL,
   `email` varchar(500) NOT NULL,
   `phone` varchar(250) NOT NULL,
+  `bkin` varchar(250) NOT NULL,
+  `bkout` varchar(250) NOT NULL,
+  `type_bed` varchar(250) NOT NULL,
+  `adult` varchar(250) NOT NULL,
+  `kid` varchar(250) NOT NULL,
+  `sumday` varchar(250) NOT NULL,
+  `price` varchar(250) NOT NULL,
   `payment` varchar(250) NOT NULL,
+  `status_pay` varchar(250) NOT NULL,
   `status` varchar(250) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
-    PRIMARY KEY (`id`) 
+    PRIMARY KEY (`id_bk`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

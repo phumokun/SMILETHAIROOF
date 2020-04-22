@@ -22,6 +22,7 @@ if(isset($_POST['submit_register'])){
     // ถ้า Email นี้ถูกใช้ไปแล้วจะแจ้งเตือน
     if ($user['email'] === $email){
         echo "<script>alert('E-Mail already exists'); </script>";
+        header('Refresh:0; url = ../index.php');
     }  else {
 
         // เพิ่มข้อมูลลง Database

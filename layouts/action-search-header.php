@@ -3,12 +3,12 @@
 
 <?php 
 
+// echo '<pre>';
+// print_r($_POST);
+// echo '</pre>';
+// exit();
 
-    // echo '<pre>';
-    // print_r($_POST);
-    // echo '</pre>';
-    // exit();
-
+$bookdates = explode( " - ",$_POST['bookdates']);
 
 if(isset($_POST['search'])){
 
@@ -17,13 +17,10 @@ if(isset($_POST['search'])){
     $query = "SELECT * FROM users_add_hotel as addho 
                     INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
                     INNER JOIN users as us ON us.id = addho.ref_id 
-                WHERE addho.province LIKE '%$location%'
+                WHERE addho.province LIKE '%$location%' AND addho.status_hotel = 'ผ่านการตรวจสอบ'
                 GROUP BY addho.ref_id";
-    
 
-    $result = mysqli_query($conn, $query);
-
-    
+    $result = mysqli_query($conn, $query); 
 
 }
 
@@ -72,7 +69,7 @@ if(isset($_POST['search'])){
                 <div class="geodir-category-img">
                     <a href="#"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" alt=""></a>
                     <div class="listing-avatar"><a href="#"><img src="images/img_users/<?php echo $row['picture_users']; ?>" alt=""></a>
-                        <span class="avatar-tooltip">เพิ่มโดย<strong> <?php echo $row['name']; ?></strong></span>
+                        <span class="avatar-tooltip">เพิ่มโดย <strong> <?php echo $row['name']; ?></strong></span>
                     </div>
                     <!-- <div class="sale-window">Sale 20%</div> -->
                     <div class="geodir-category-opt">
@@ -86,7 +83,7 @@ if(isset($_POST['search'])){
                 <div class="geodir-category-content fl-wrap">
                     <div class="geodir-category-content-title fl-wrap">
                         <div class="geodir-category-content-title-item">
-                            <h3 class="title-sin_map"><a href="listing-single.php?id=<?php echo $row['id']; ?>"><?php echo $row['name_hotel']; ?></a></h3>
+                            <h3 class="title-sin_map"><a href="listing-single.php?id=<?php echo $row['id']; ?> " target="_blank"><?php echo $row['name_hotel']; ?></a></h3>
                             <div class="geodir-category-location fl-wrap"><a href="#0" class="map-item">
                                 <i class="fas fa-map-marker-alt"></i> <?php echo "ต.",$row['sub_area']," อ.",$row['area']," จ.",$row['province']; ?></a></div>
                         </div>

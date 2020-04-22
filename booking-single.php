@@ -5,38 +5,40 @@
 
     include_once 'connectdb.php';
 
-    $id_hotel = $_GET['act'];
-    $id_host = $_GET['id'];
+    $ref_hotel = $_GET['id'];
 
     // echo '<pre>';
-    // print_r ($_GET);
+    // print_r ($_POST);
     // echo '</pre>';
     // exit(); 
 
-    if (isset($_POST['submit'])) {
+    // รับค่าจาก form
+    $type_bed = $_POST['repopt'];
+    $bookdates = explode( " - ",$_POST['bookdates']);
+    $sumday = $_POST['qty5'];
+    $adult = $_POST['qty3'];
+    $kid = $_POST['qty2'];
+ 
+    
+    // ตั้งเงื่อนไขเพื่อทำ INNER JOIN
+    $query = "SELECT * FROM room_in_hotel as inho
+                    INNER JOIN users_add_hotel as addho ON inho.ref_id = addho.ref_id
+                WHERE addho.ref_id = $ref_hotel AND type_bed = '" . $type_bed . "'
+                GROUP BY inho.ref_id";
 
-        $type_bed = $_POST['repopt'];
-        $bookdates = explode( " - ",$_POST['bookdates']);
-        $sumday = $_POST['qty5'];
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result); 
 
-        // echo $bookdates[1];
-        // exit(); 
-        
-        $query = "SELECT * FROM room_in_hotel as inho
-                        INNER JOIN users_add_hotel as addho ON addho.ref_id = inho.ref_id
-                    WHERE addho.ref_id = $id_host
-                    GROUP BY inho.ref_id";
+    $price_adult = $row['price_adult'];
+    $price_kid = $row['price_kid'];
+    $id_room = $row['id_room'];
+    $ref_id = $row['ref_id'];
+    $id_hotel = $row['id_hotel'];
 
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_array($result); 
 
-        
-    }
+    // คำณวนราคา
+    $price = ((($price_adult * $adult) + ($price_kid * $kid)) * $sumday);
 
-    // echo $query;
-    // exit();
-
-    // $bookdates = explode( " - ",$_POST['bookdates']);
 
 ?>
 
@@ -90,16 +92,17 @@
                                 <div class="col-md-8">
                                     <div class="bookiing-form-wrap">
                                         <!-- <ul id="progressbar">
-                                            <li class="active"><span>01.</span>Personal Info</li>
-                                            <li><span>02.</span>Billing Address</li>
-                                            <li><span>03.</span>Payment Method</li>
-                                            <li><span>04.</span>Confirm</li>
+                                            <li class="active"><span>01.</span>ข้อมูลส่วนตัว</li>
+                                            <li><span>02.</span>ที่อยู่ปัจจุบัน</li>
+                                            <li><span>03.</span>การจ่ายเงิน</li>
+                                            <li><span>04.</span>ยืนยันการจ่ายเงิน</li>
                                         </ul> -->
                                         <!--   list-single-main-item -->
                                         <div class="list-single-main-item fl-wrap hidden-section tr-sec">
                                             <div class="profile-edit-container">
                                                 <div class="custom-form">
-                                                    <form action="layouts/action-booking-room.php" method="post">
+                                                    <!-- Omise -->
+                                                    <form id="checkoutForm" action="layouts/action-booking-room.php" method="post">
                                                         <fieldset class="fl-wrap">
                                                             <div class="list-single-main-item-title fl-wrap">
                                                                 <h3>ข้อมูลผู้จองที่พัก</h3>
@@ -107,17 +110,18 @@
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <label>ชื่อ - สกุล ผู้จอง<i class="far fa-user"></i></label>
-                                                                    <input type="text" name="name_user" placeholder="Your Name" value="<?php echo $_SESSION['name']; ?>"/>                                                  
+                                                                    <input type="text" name="name_user" placeholder="Your Name" value="<?php echo $_SESSION['name']; ?>" readonly>  
+                                                                    <input type="hidden" name="id_user" placeholder="Your Name" value="<?php echo $_SESSION['id']; ?>" readonly>                                                 
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                     <label>E-mail<i class="far fa-envelope"></i>  </label>
-                                                                    <input type="text" name="email" placeholder="yourmail@domain.com" value="<?php echo $_SESSION['email']; ?>"/>                                                  
+                                                                    <input type="text" name="email" placeholder="yourmail@domain.com" value="<?php echo $_SESSION['email']; ?>" readonly>                                                  
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <label>เบอร์โทร<i class="far fa-phone"></i>  </label>
-                                                                    <input type="text" name="phone" placeholder="87945612233" value="<?php echo $_SESSION['phone_user']; ?>"/>
+                                                                    <input type="text" name="phone" placeholder="87945612233" value="<?php echo $_SESSION['phone_user']; ?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <!-- <div class="log-massage">Existing Customer? <a href="#" class="modal-open">Click here to login</a></div> -->
@@ -133,101 +137,120 @@
                                                             <span class="fw-separator"></span>
 
 
-                                                            <input type="hidden" name="type_bed" placeholder="87945612233" value="<?php echo $type_bed; ?>"/>
-                                                            <input type="hidden" name="in" placeholder="87945612233" value="<?php echo $bookdates[0]; ?>"/>
-                                                            <input type="hidden" name="out" placeholder="87945612233" value="<?php echo $bookdates[1]; ?>"/>
+                                                            <input type="hidden" name="type_bed" value="<?php echo $type_bed; ?>"/>
+                                                            <input type="hidden" name="in" value="<?php echo $bookdates[0]; ?>"/>
+                                                            <input type="hidden" name="out" value="<?php echo $bookdates[1]; ?>"/>
                                                            
-                                                            <input type="hidden" name="id_host" placeholder="87945612233" value="<?php echo $id_host; ?>"/>
+                                                            <input type="hidden" name="id_host" value="<?php echo $ref_id; ?>"/>
+                                                            <input type="hidden" name="id_hotel" value="<?php echo $id_hotel; ?>"/>
+                                                            <input type="hidden" name="id_room" value="<?php echo $id_room; ?>"/>
+                                                            <input type="hidden" name="adult" value="<?php echo $adult; ?>"/>
+                                                            <input type="hidden" name="kid" value="<?php echo $kid; ?>"/>
+                                                            <input type="hidden" name="sumday" value="<?php echo $sumday; ?>"/>
                                                             
-                                                            <!-- <a  href="#"  class="next-form action-button btn no-shdow-btn color-bg">Billing Address <i class="fal fa-angle-right"></i></a> -->
-                                                            <button type="submit" name="submit" class="action-button btn no-shdow-btn color-bg">จองที่พัก<i class="fal fa-angle-right"></i></a>
+                                                            <a  href="#"  class="next-form action-button btn no-shdow-btn color-bg">ยืนยัน<i class="fal fa-angle-right"></i></a>
+                                                            <!-- <button type="submit" name="submit" class="action-button btn no-shdow-btn color-bg">จองที่พัก<i class="fal fa-angle-right"></i></a> -->
                                                         </fieldset>
                                                         <fieldset class="fl-wrap">
                                                             <div class="list-single-main-item-title fl-wrap">
-                                                                <h3>Billing Address</h3>
+                                                                <h3>ที่อยู่ปัจจุบัน</h3>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-sm-6">
-                                                                    <label>City <i class="fal fa-globe-asia"></i></label>
-                                                                    <input type="text" placeholder="Your city" value=""/>                                                  
+                                                                <div class="col-sm-4">
+                                                                    <label>บ้านเลขที่<i class="fal fa-globe-asia"></i></label>
+                                                                    <input type="text" placeholder="กรอกบ้านเลขที่" value=""/>                                                  
                                                                 </div>
-                                                                <div class="col-sm-6">
-                                                                    <label>Country </label>
+                                                                <div class="col-sm-4">
+                                                                    <label>ถนน<i class="fal fa-globe-asia"></i></label>
+                                                                    <input type="text" placeholder="กรอกถนน" value=""/>                                                  
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label>ซอย<i class="fal fa-globe-asia"></i></label>
+                                                                    <input type="text" placeholder="กรอกซอย" value=""/>                                                  
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <label>อำเภอ<i class="fal fa-road"></i> </label>
+                                                                    <input type="text" placeholder="กรอกอำเภอ" value=""/>                                                  
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label>ตำบล<i class="fal fa-road"></i> </label>
+                                                                    <input type="text" placeholder="กรอกตำบล" value=""/>                                                  
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <label>จังหวัด</label>
                                                                     <div class="listsearch-input-item ">
-                                                                        <select data-placeholder="Your Country" class="chosen-select no-search-select" >
-                                                                            <option>United states</option>
-                                                                            <option>Asia</option>
-                                                                            <option>Australia</option>
-                                                                            <option>Europe</option>
-                                                                            <option>South America</option>
-                                                                            <option>Africa</option>
+                                                                        <select data-placeholder="เลือกจังหวัดที่ท่านอาศัย" class="chosen-select" >
+                                                                            <?php include('layouts/option-city.php'); ?>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-sm-12">
-                                                                    <label>Street <i class="fal fa-road"></i> </label>
-                                                                    <input type="text" placeholder="Your Street" value=""/>                                                  
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-8">
-                                                                    <label>State<i class="fal fa-street-view"></i></label>
-                                                                    <input type="text" placeholder="Your State" value=""/>                                                  
-                                                                </div>
                                                                 <div class="col-sm-4">
-                                                                    <label>Postal code<i class="fal fa-barcode"></i> </label>
-                                                                    <input type="text" placeholder="123456" value=""/>
+                                                                    <label>รหัสไปรษณย์<i class="fal fa-barcode"></i> </label>
+                                                                    <input type="text" placeholder="กรอกรหัสไปรษณีย์" value=""/>
                                                                 </div>
                                                             </div>
-                                                            <div class="list-single-main-item-title fl-wrap">
-                                                                <h3>Addtional Notes</h3>
-                                                            </div>
-                                                            <textarea cols="40" rows="3" placeholder="Notes"></textarea>
                                                             <span class="fw-separator"></span>
                                                             <a  href="#"  class="previous-form action-button back-form   color-bg"><i class="fal fa-angle-left"></i> Back</a>
                                                             <a  href="#"  class="next-form back-form action-button btn no-shdow-btn color-bg">Payment Step <i class="fal fa-angle-right"></i></a>
                                                         </fieldset>
                                                         <fieldset class="fl-wrap">
                                                             <div class="list-single-main-item-title fl-wrap">
-                                                                <h3>Payment method</h3>
+                                                                <h3>การจ่ายเงิน</h3>
                                                             </div>
+
+                                                            <!-- Omise -->
+                                                            <!-- <div id="token_errors"></div>
+                                                            <input type="text" name="omise_token">
+
                                                             <div class="row">
                                                                 <div class="col-sm-6">
-                                                                    <label>Cardholder's Name<i class="far fa-user"></i></label>
-                                                                    <input type="text" placeholder="" value="Adam Kowalsky"/>                                                  
+                                                                    <label>ชื่อ<i class="far fa-user"></i></label>
+                                                                    <input type="text" placeholder="กรุณากรอกชื่อหน้าบัตร" value="" data-omise="holder_name"/>                                                  
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    <label>Card Number <i class="fal fa-credit-card-front"></i></label>
-                                                                    <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" value=""/> 
+                                                                    <label>หมายเลขบัตร<i class="fal fa-credit-card-front"></i></label>
+                                                                    <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" value="" data-omise="number"/> 
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-sm-3">
-                                                                    <label>Expiry Month<i class="fal fa-calendar"></i></label>
-                                                                    <input type="text" placeholder="MM" value=""/>                                                  
+                                                                    <label>เดือนหมดอายุ<i class="fal fa-calendar"></i></label>
+                                                                    <input type="text" placeholder="MM" value="" data-omise="expiration_month" size="4"/>                                                  
                                                                 </div>
                                                                 <div class="col-sm-3">
-                                                                    <label>Expiry Year<i class="fal fa-calendar"></i></label>
-                                                                    <input type="text" placeholder="YY" value=""/>                                                  
+                                                                    <label>ปีหมดอายุ<i class="fal fa-calendar"></i></label>
+                                                                    <input type="text" placeholder="YY" value="" data-omise="expiration_year" size="8"/>                                                  
                                                                 </div>
                                                                 <div class="col-sm-2">
                                                                     <label>CVV / CVC *<i class="fal fa-credit-card"></i></label>
-                                                                    <input type="password" placeholder="***" value=""/> 
+                                                                    <input type="text" placeholder="***" value="" data-omise="security_code" size="8"/> 
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <p style="padding-top:20px;">*Three digits number on the back of your card</p>
                                                                 </div>
-                                                            </div>
-                                                            <div class="log-separator fl-wrap"><span>or</span></div>
+                                                            </div> -->
+                                                            <!-- <div class="log-separator fl-wrap"><span>or</span></div> -->
+                                                            
+                                                            <!-- ราคาค่าห้อง -->
+                                                            <input type="hidden" name="price" value="<?php echo $price; ?>">
+
+                                                            <!-- Omise -->
+                                                            <input type="hidden" name="omiseToken">
+                                                            <input type="hidden" name="omiseSource">  
+
                                                             <div class="soc-log fl-wrap">
-                                                                <p>Select Other Payment Method</p>
-                                                                <a href="#" class="paypal-log"><i class="fab fa-paypal"></i>Pay With Paypal</a>
+                                                                <p>เลือกการชำระเงิน</p>
+                                                                <!-- ปุ่มเลือกการชำระแบบ Omise -->
+                                                                <a href="#" id="checkoutButton" class="paypal-log action-button"><i class="fab fa-cc-mastercard"></i>Pay With Mastercard</a>
                                                             </div>
-                                                            <span class="fw-separator"></span>
-                                                            <a  href="#"  class="previous-form  back-form action-button    color-bg"><i class="fal fa-angle-left"></i> Back</a>
-                                                            <a  href="#"  class="next-form  action-button btn color2-bg no-shdow-btn">Confirm and Pay<i class="fal fa-angle-right"></i></a>                                               
+                                                            <!-- <span class="fw-separator"></span> -->
+                                                            <a  href="#"  class="previous-form  back-form action-button    color-bg"><i class="fal fa-angle-left"></i>ย้อนกลับ</a>
+                                                            <!-- <a  href="#" type="submit" name="submit" class="next-form  action-button btn color2-bg no-shdow-btn">ชำระเงิน<i class="fal fa-angle-right"></i></a> -->
+                                                            <!-- <button type="submit" id="checkoutButton" name="submit" class="action-button btn no-shdow-btn color-bg" style="background: #F9B90F;float: right;">จ่ายเงิน<i class="fal fa-angle-right"></i></a> -->
                                                         </fieldset>
                                                         <fieldset class="fl-wrap">
                                                             <div class="list-single-main-item-title fl-wrap">
@@ -260,7 +283,7 @@
                                     <div class="cart-details fl-wrap">
                                         <!--cart-details_header--> 
                                         <div class="cart-details_header">
-                                            <a href="#"  class="widget-posts-img"><img src="images/city/<?php echo $row['picture']; ?>" class="respimg" alt=""></a>
+                                            <a href="#"  class="widget-posts-img"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" class="respimg" alt=""></a>
                                             <div class="widget-posts-descr">
                                                 <a href="#" title=""><?php echo $row['name_hotel']; ?></a>
                                                 <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
@@ -275,6 +298,8 @@
                                                 <li>เข้าพัก : <span><?php echo $bookdates[0]; ?> </span></li>
                                                 <li>ออก<span><?php echo $bookdates[1]; ?></span></li>
                                                 <li>จำนวนวันที่พัก<span><?php echo $sumday; ?></span></li>
+                                                <li>ผู้ใหญ่<span><?php echo $adult; ?></span></li>
+                                                <li>เด็ก<span><?php echo $kid; ?></span></li>
                                                 <!-- <li>Adults <span>2</span></li>
                                                 <li>Childs <span>1 <strong>-10%</strong></span></li>
                                                 <li>Taxes And Fees <span><strong>$12</strong></span></li> -->
@@ -286,7 +311,7 @@
                                     <!--cart-total --> 
                                     <div class="cart-total">
                                         <span class="cart-total_item_title">รวม</span>
-                                        <strong>บาท</strong>                                
+                                        <strong><?php echo $price; ?> บาท</strong>                                
                                     </div>
                                     <!--cart-total end -->                             
                                 </div>
@@ -321,6 +346,36 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCm7W3cZP4QiIDR3WxbIoAEhrM6o2GzU2g&libraries=places&callback=initAutocomplete"></script>      
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCm7W3cZP4QiIDR3WxbIoAEhrM6o2GzU2g&libraries=places&callback=initAutocomplete"></script> 
+        <script type="text/javascript" src="https://cdn.omise.co/omise.js"></script>
+
+        <!-- Omise -->
+        <script>
+
+            OmiseCard.configure({
+                publicKey: "pkey_test_5jhwahj74cgia1vzb3v"
+            });
+
+            var button = document.querySelector("#checkoutButton");
+            var form = document.querySelector("#checkoutForm");
+
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                OmiseCard.open({
+                amount: <?php echo $price*100; ?>,
+                currency: "THB",
+                defaultPaymentMethod: "credit_card",
+                onCreateTokenSuccess: (nonce) => {
+                    if (nonce.startsWith("tokn_")) {
+                        form.omiseToken.value = nonce;
+                    } else {
+                        form.omiseSource.value = nonce;
+                    };
+                    form.submit();
+                }
+                });
+            });
+
+        </script>
     </body>
 </html>

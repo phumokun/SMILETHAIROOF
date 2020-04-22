@@ -30,7 +30,7 @@
                 <div class="col-list-search-input-item in-loc-dec date-container  fl-wrap">
                     <label>วันที่ เข้า-ออก</label>
                     <span class="header-search-input-item-icon"><i class="fal fa-calendar-check"></i></span>
-                    <input type="text"   placeholder="วันที่ต้องการพัก" name="dates"   value=""/>
+                    <input type="text"   placeholder="วันที่ต้องการพัก" name="bookdates"  value=""/>
                 </div>
                 <!--col-list-search-input-item end-->
                 <!--col-list-search-input-item -->

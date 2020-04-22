@@ -2,10 +2,30 @@
 
     session_start();
 
+    include_once 'connectdb.php';
+
     include('layouts/alert-please-login.php');
 
-    $name = $_SESSION['name'];
-    $email = $_SESSION['email'];
+    // รับ Parameter GET
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        
+        $query = "SELECT * FROM books as bk
+                        INNER JOIN users_add_hotel as addho ON bk.ref_host = addho.ref_id
+                        INNER JOIN room_in_hotel as inho ON bk.ref_room = inho.id_room
+                    WHERE bk.ref_user = $id";
+                
+        // $result = mysqli_query($conn, $query);
+        // $row = mysqli_fetch_array($result);
+
+        // echo $query;
+        // exit();
+        
+        // echo '<pre>';
+        // print_r ($name_ho);
+        // echo '</pre>';
+        // exit();
+    }
     
 ?>
 
@@ -75,123 +95,55 @@
                                 <div class="dashboard-content fl-wrap">
                                     <div class="dashboard-list-box fl-wrap">
                                         <div class="dashboard-header fl-wrap">
-                                            <h3>Bookings</h3>
+                                            <h3>ประวัติการจอง</h3>
                                         </div>
+                                        <?php if ($result = mysqli_query($conn, $query)) {
+                                                while ($row = mysqli_fetch_array($result)) {?>
                                         <!-- dashboard-list end-->    
                                         <div class="dashboard-list">
                                             <div class="dashboard-message">
                                                 <span class="new-dashboard-item">New</span>
                                                 <div class="dashboard-message-avatar">
-                                                    <img src="images/avatar/avatar-bg.png" alt="">
+                                                    <img src="images/images_hotel_users/<?php echo $row['picture']; ?>" alt="">
                                                 </div>
                                                 <div class="dashboard-message-text">
-                                                    <h4>Andy Smith - <span>27 December 2018</span></h4>
+                                                    <h4><a href="listing-single.php?id=<?php echo $row['ref_host']; ?>" style="color:#666"><?php echo $row['name_hotel']; ?></a> - <span><?php echo $row['create_date']; ?></span></h4>
                                                     <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Listing Item :</span> :
-                                                        <span class="booking-text"><a href="listing-sinle.html">Premium Plaza Hotel</a></span>
+                                                        <span class="booking-title">ประเภทห้อง :</span>   
+                                                        <span class="booking-text"><?php echo $row['type_bed']; ?></span>
                                                     </div>
                                                     <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Persons :</span>   
-                                                        <span class="booking-text">4 Peoples</span>
+                                                        <span class="booking-title">จำนวนผู้เข้าพัก :</span>   
+                                                        <span class="booking-text">ผู้ใหญ่ : <?php echo $row['adult']; ?> คน ; เด็ก : <?php echo $row['kid']; ?></span>
                                                     </div>
                                                     <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Booking Date :</span>   
-                                                        <span class="booking-text">02.03.2018  - 10.03.2018</span>
+                                                        <span class="booking-title">วันที่เข้าพัก :</span>   
+                                                        <span class="booking-text"><?php echo $row['bkin']; ?>  - <?php echo $row['bkout']; ?> รวม : <?php echo $row['sumday'];?> วัน </span>
+                                                    </div>
+                                                    <div class="booking-details fl-wrap">
+                                                        <span class="booking-title">รวมราคา :</span>   
+                                                        <span class="booking-text"><?php echo $row['price'];?> บาท</span>
                                                     </div>
                                                     <div class="booking-details fl-wrap">                                                               
-                                                        <span class="booking-title">Mail :</span>  
-                                                        <span class="booking-text"><a href="#" target="_top">yormail@domain.com</a></span>
+                                                        <span class="booking-title">อีเมลล์โรงแรม :</span>  
+                                                        <span class="booking-text"><a href="#" target="_top"><?php echo $row['email_hotel']; ?></a></span>
                                                     </div>
                                                     <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Phone :</span>   
-                                                        <span class="booking-text"><a href="tel:+496170961709" target="_top">+496170961709</a></span>
+                                                        <span class="booking-title">เบอร์โทรโรงแรม :</span>   
+                                                        <span class="booking-text"><a href="tel:+496170961709" target="_top"><?php echo $row['phone_hotel']; ?></a></span>
                                                     </div>
                                                     <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Payment State :</span> 
-                                                        <span class="booking-text"> <strong class="done-paid">Paid  </strong>  using Paypal</span>
+                                                        <span class="booking-title">ชำระเงินด้วย :</span> 
+                                                        <span class="booking-text"> <strong class="done-paid"><?php echo $row['status_pay']; ?>  </strong> ด้วย <?php echo $row['payment']; ?></span>
                                                     </div>
-                                                    <span class="fw-separator"></span>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- dashboard-list end-->    
-                                        <!-- dashboard-list end-->    
-                                        <div class="dashboard-list">
-                                            <div class="dashboard-message">
-                                                <div class="dashboard-message-avatar">
-                                                    <img src="images/avatar/avatar-bg.png" alt="">
-                                                </div>
-                                                <div class="dashboard-message-text">
-                                                    <h4>Andy Smith - <span>27 December 2018</span></h4>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Listing Item :</span>  
-                                                        <span class="booking-text"><a href="listing-sinle.html">Moonlight Hotel</a></span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Persons :</span>   
-                                                        <span class="booking-text">4 Peoples</span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Booking Date :</span>  
-                                                        <span class="booking-text">02.03.2018  - 10.03.2018</span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">                                                               
-                                                        <span class="booking-title">Mail :</span>  
-                                                        <span class="booking-text"><a href="#" target="_top">yormail@domain.com</a></span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Phone :</span>  
-                                                        <span class="booking-text"><a  href="tel:+496170961709" target="_top">+496170961709</a></span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Payment State :</span> 
-                                                        <span class="booking-text"> <strong class="done-paid">Paid  </strong>  using Paypal</span>
-                                                    </div>
-                                                    <span class="fw-separator"></span>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- dashboard-list end-->                                             
-                                        <!-- dashboard-list end-->    
-                                        <div class="dashboard-list">
-                                            <div class="dashboard-message">
-                                                <div class="dashboard-message-avatar">
-                                                    <img src="images/avatar/avatar-bg.png" alt="">
-                                                </div>
-                                                <div class="dashboard-message-text">
-                                                    <h4>Andy Smith - <span>27 December 2018</span></h4>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Listing Item :</span>  
-                                                        <span class="booking-text"><a href="listing-sinle.html">Moonlight Hotel</a></span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Persons :</span>   
-                                                        <span class="booking-text">4 Peoples</span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Booking Date :</span>   
-                                                        <span class="booking-text">02.03.2018  - 10.03.2018</span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">                                                               
-                                                        <span class="booking-title">Mail :</span>  
-                                                        <span class="booking-text"><a href="#" target="_top">yormail@domain.com</a></span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Phone :</span>  
-                                                        <span class="booking-text"><a  href="tel:+496170961709" target="_top">+496170961709</a></span>
-                                                    </div>
-                                                    <div class="booking-details fl-wrap">
-                                                        <span class="booking-title">Payment State :</span> 
-                                                        <span class="booking-text"> <strong class="done-paid">Paid  </strong>  using Paypal</span>
-                                                    </div>
-                                                    <span class="fw-separator"></span>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- dashboard-list end-->                                            
+                                        <?php
+                                                    }
+                                                }
+                                        ?>
+                                        <!-- dashboard-list end-->                                              
                                     </div>
                                     <!-- pagination-->
                                     <div class="pagination">

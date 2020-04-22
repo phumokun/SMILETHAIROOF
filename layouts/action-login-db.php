@@ -31,6 +31,7 @@ if(isset($_POST['submit_login'])){
         $_SESSION['address'] = $row['address'];
         $_SESSION['about_me'] = $row['about_me'];
         $_SESSION['picture_users'] = $row['picture_users'];
+        $_SESSION['userlevel'] = $row['userlevel'];
 
         // echo '<pre>';
         // print_r($row);

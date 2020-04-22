@@ -1,5 +1,5 @@
 CREATE TABLE `room_in_hotel` (
-  `id` int(10) NOT NULL AUTO_INCREMENT, 
+  `id_room` int(10) NOT NULL AUTO_INCREMENT, 
   `ref_id` varchar(50) NOT NULL,
   `name_room` varchar(250) NOT NULL,
   `price_adult` varchar(250) NOT NULL,
@@ -12,5 +12,5 @@ CREATE TABLE `room_in_hotel` (
   `facebook` varchar(250) NOT NULL,
   `instagram` varchar(250) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
-    PRIMARY KEY (`id`) 
+    PRIMARY KEY (`id_room`) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

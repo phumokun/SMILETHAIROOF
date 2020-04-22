@@ -9,27 +9,11 @@ session_start();
     // echo '</pre>';
     // exit();
 
-
     // รับค่า ID จาก Parmeter ที่มากับ link
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $query = "SELECT * FROM users
-                WHERE id = " . $id;
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_array($result); 
-
-        $user_id = $row["id"];
-
-        // echo '<pre>';
-        // print_r($user_id);
-        // echo '</pre>';
-        // exit();
-        
-    }
+    $id = $_GET['id'];
 
     if(isset($_POST['submit_edit_room'])){
 
-        
         $name_room = $_POST['name_room'];
         $price_adult = $_POST['price_adult'];
         $price_kid = $_POST['price_kid'];
@@ -87,7 +71,7 @@ session_start();
                             option_room = '" . $option_room . "',
                             facebook = '" . $facebook . "',
                             instagram = '" . $instagram . "' 
-                    WHERE id = " .$id;
+                    WHERE id_room = " .$id;
         $result = mysqli_query($conn, $in_hotel);
 
         if ($result) {

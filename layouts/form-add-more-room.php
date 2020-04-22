@@ -94,9 +94,9 @@
                             <label>เลขไปรษณีย์<i class="far fa-phone"></i>  </label>
                             <input type="text" name="postal_code" placeholder="กรุณากรอกเลขไปรษณีย์" value="<?php echo $row['postal_code']; ?>" readonly/>
                             <label>หมายเลขติดต่อ<i class="far fa-phone"></i>  </label>
-                            <input type="text" name="phone" placeholder="กรอกหมายเลขโทรศัพท์ของท่าน" value="<?php echo $row['phone']; ?>" readonly/>
+                            <input type="text" name="phone" placeholder="กรอกหมายเลขโทรศัพท์ของท่าน" value="<?php echo $row['phone_hotel']; ?>" readonly/>
                             <label>อีเมลล์<i class="far fa-envelope"></i>  </label>
-                            <input type="email" name="email" placeholder="กรอกอีเมลล์ของท่าน" value="<?php echo $row['email']; ?>" readonly/>
+                            <input type="email" name="email" placeholder="กรอกอีเมลล์ของท่าน" value="<?php echo $row['email_hotel']; ?>" readonly/>
 
                             <div class="row">
                                 <div class="col-md-6">
