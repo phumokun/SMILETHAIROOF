@@ -15,11 +15,11 @@
     $result = mysqli_query($conn, $query);
 
     // เพิ่มจำนวนห้องที่เหลือ
-    $query_nb = "UPDATE room_in_hotel
-                    SET no_bed = no_bed+1
-                    WHERE id_room = " . $refr; 
+    // $query_nb = "UPDATE room_in_hotel
+    //                 SET no_bed = no_bed+1
+    //                 WHERE id_room = " . $refr; 
         
-    $result_nb = mysqli_query($conn, $query_nb);
+    // $result_nb = mysqli_query($conn, $query_nb);
     
     if ($result){
         echo '<script> alert("Check Out เรียบร้อย"); </script>';

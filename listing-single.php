@@ -59,7 +59,13 @@
     } else {
         $sot = '5';
     }
- 
+    
+    $sot1=$row_rev['sot'];
+    if ($sot1 != ''){
+        $sot1=$row_rev['sot'];
+    } else {
+        $sot1='0';
+    } 
 
 ?>
 
@@ -131,7 +137,7 @@
                                             <div class="list-single-hero-rating">
                                                 <div class="rate-class-name">
                                                     <div class="score"><strong>คะแนน</strong><?php echo $row_rev['couh']; ?> รีวิว</div>
-                                                    <span><?php echo $row_rev['sot']; ?></span>                                             
+                                                    <span><?php echo $sot1; ?></span>                                             
                                                 </div>
                                                 <!-- list-single-hero-rating-list-->
                                                 <div class="list-single-hero-rating-list">
@@ -504,17 +510,6 @@
                                                     </div>
 
                                                     <?php 
-
-                                                        // หาค่าห้องว่าง ห้องไหนเหลือกี่ห้อง
-                                                        $count_rfr = "SELECT ref_room,COUNT(ref_room) as rfr FROM books
-                                                                    WHERE ref_hotel = $id
-                                                                    GROUP BY type_bed";
-
-                                                        $resul_rfr = mysqli_query($conn, $count_rfr);
-                                                        $row_rfr = mysqli_fetch_array($resul_rfr);
-
-                                                        $rfr = $row_rfr['rfr'];
-
                                                         // query ข้อมูลประเภทห้อง
                                                         $query_bk = "SELECT * FROM room_in_hotel as inho
                                                                         INNER JOIN type_bed as tb ON tb.type_bed = inho.type_bed
@@ -524,6 +519,7 @@
                                                         // $query = "SELECT * FROM type_bed ORDER BY id ASC";   
                                                                 
                                                         $result_bk = mysqli_query($conn, $query_bk);
+                                                        $row_bk = mysqli_fetch_array($result_bk);
 
                                                         // $id_host = $_GET['act'];
                                                         
@@ -539,13 +535,27 @@
                                                                 <div class="listsearch-input-item">
                                                                     <label>ประเภทห้อง</label>
                                                                     <select data-placeholder="Room Type" name="repopt"  class="chosen-select no-search-select" >
-                                                                        <?php while ($row_bk = mysqli_fetch_array($result_bk)) { ?>
+                                                                        <?php 
+                                                                            $result_bk = mysqli_query($conn, $query_bk);
+                                                                            while ($row_bk = mysqli_fetch_array($result_bk)) { 
+                                                                                        // เอา Id_room ไปลบ
+                                                                                        $id_room = $row_bk['id_room'];
+                                                                                        // หาค่าห้องว่าง ห้องไหนเหลือกี่ห้อง
+                                                                                        $count_rfr = "SELECT *,COUNT(ref_room) as rfr FROM books
+                                                                                                        WHERE ref_host = $id AND ref_room = $id_room
+                                                                                                        GROUP BY ref_room";
+
+                                                                                        $resul_rfr = mysqli_query($conn, $count_rfr);
+                                                                                        $row_rfr = mysqli_fetch_array($resul_rfr);
+
+                                                                                        $rfr = $row_rfr['rfr'];
+                                                                        ?>
                                                                         <option value="<?php echo $row_bk['type_bed']; ?>"><?php echo $row_bk['type_bed']; ?> ว่าง <?php echo $row_bk['no_bed'] - $rfr;?> ห้อง</option>
                                                                         <?php } ?>
                                                                     </select>
                                                                     <!--data-formula -->
                                                                     <input type="text" name="item_total" class="hid-input"  value=""  data-form="{repopt}">
-                                                                    <input type="hidden" name="count_room" value="<?php echo $rfr; ?>">
+                                                                    <input type="text" name="count_room" class="hid-input" value="<?php echo $rfr; ?>">
                                                                 </div>
                                                             </div>
                                                             <div class="cal-item">
@@ -576,7 +586,7 @@
                                                             </div>
                                                         </fieldset>
                                                         <input type="number"  id="totaldays" name="qty5" class="hid-input">
-                                                        <div class="total-coast fl-wrap"><strong>รวม</strong> <span>บาท<input type="text" name="grand_total" value="" data-form="SUM({item_total}) * {qty5}"></span></div>
+                                                        <!-- <div class="total-coast fl-wrap"><strong>รวม</strong> <span>บาท<input type="text" name="grand_total" value="" data-form="SUM({item_total}) * {qty5}"></span></div> -->
                                                         <button name="submit" class="btnaplly color2-bg">จองที่พักนี้<i class="fal fa-paper-plane"></i></button>
                                                     </form>
                                                 </div>
@@ -669,12 +679,12 @@
                                                                 // หาค่าเฉลี่ย Score Total และนับจำนวนผู้รีวิว
                                                                 $query = "SELECT *, round(AVG(score_to),1) as sot FROM users_add_hotel as addho 
                                                                                 INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
-                                                                                INNER JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id
+                                                                                LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id
                                                                             WHERE addho.status_hotel = 'ผ่านการตรวจสอบ' 
                                                                             GROUP BY addho.ref_id";
                                 
                                                                 $result = mysqli_query($conn, $query); 
-                                                                $i=1;
+                                                                $i=0;
                                                                 while ($row = mysqli_fetch_array($result)) {      
                                                             ?>
                                                             <li class="clearfix">

@@ -5,6 +5,8 @@
 
     include_once 'connectdb.php';
 
+    include('layouts/alert-please-login.php');
+
     $ref_hotel = $_GET['id'];
 
     // echo '<pre>';

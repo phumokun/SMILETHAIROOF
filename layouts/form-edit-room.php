@@ -9,6 +9,8 @@
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_array($result); 
 
+        $ref_id = $row['ref_id'];
+
         // echo '<pre>';
         // print_r($row);
         // echo '</pre>';
@@ -18,7 +20,7 @@
 ?>
 
 
-<form action="layouts/action-edit-room-db.php?id=<?php echo $row['id_room']; ?>" method="post" enctype="multipart/form-data">
+<form action="layouts/action-edit-room-db.php?id=<?php echo $row['id_room']; ?>&act=<?php echo $ref_id; ?>" method="post" enctype="multipart/form-data">
     <!-- section  -->
     <section class="middle-padding">
         <div class="container">
@@ -234,22 +236,11 @@
                                 <label>รายละเอียดห้อง</label>
                                 <textarea cols="40" rows="3" name="detail_room" placeholder=""><?php echo $row['detail_room']; ?></textarea>
                                 <div class="profile-edit-container" style="margin-top:30px">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>รูปภาพ</label>
-                                            <div class="add-list-media-wrap">
-                                                <div class="fuzone">
-                                                    <div class="fu-text">
-                                                        <span><i class="fal fa-image"></i> Click here or drop files to upload</span>
-                                                    </div>
-                                                    <input type="file" class="upload" name="picture" accept="image/*">
-                                                    <input type="hidden" class="upload" name="picture_old" accept="image/*" value="<?php echo $row['picture']; ?>">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
+                                    <div class="row">                        
+                                        <div class="col-md-12">
+                                            <label>สิ่งอำนวยความสะดวกภายในห้อง</label>
                                             <!-- Checkboxes -->
-                                            <ul class="fl-wrap filter-tags" style="margin-top:24px">
+                                            <ul class="fl-wrap filter-tags" style="margin-top:16px; margin-left:13px">
                                                 <li>
                                                     <input id="check-aaa51" type="checkbox" name="option_room[]" value="ฟรี WiFi">
                                                     <label for="check-aaa51">ฟรี WiFi</label>
@@ -291,7 +282,43 @@
                                                     <label for="check-bb51">เครื่องหนีบผม</label>
                                                 </li>
                                             </ul>
-                                            <!-- Checkboxes end -->
+                                        </div>
+                                        <!-- Checkboxes end -->
+                                        <div class="col-md-12 mat-top">
+                                            <div class="box-widget-item-header">
+                                                <h3>รูปภาพ</h3>
+                                            </div>
+                                            <div class="add-list-media-wrap">
+                                                <div class="fuzone">
+                                                    <div class="row">
+                                                        <div id="uploaded_images"></div>
+                                                    </div>
+                                                    <div id="select_file">
+                                                        <!-- The fileinput-button span is used to style the file input field as button -->
+                                                        <span class="btn color2-bg  float-btn" style="float:none;">
+                                                        <i class="fal fa-paper-plane"></i>
+                                                        <span>เพิ่มรูปห้องพัก</span>
+                                                        <!-- The file input field used as target for the file upload widget -->
+                                                        <input id="fileupload" type="file" name="files" accept="image/x-png, image/gif, image/jpeg" >
+                                                        </span>
+                                                        <br>
+                                                        <br>
+                                                        <!-- The global progress bar -->
+                                                        <!-- <div id="progress" class="progress">
+                                                            <div class="progress-bar progress-bar-success"></div>
+                                                        </div> -->
+                                                        <!-- The container for the uploaded files -->
+                                                        <div id="files" class="files"></div>
+                                                        <input type="text" name="picture_main" id="uploaded_file_name" hidden>
+                                                        <br>
+                                                    </div>
+                                                    <!-- <div class="fu-text">
+                                                        <span><i class="fal fa-image"></i> Click here or drop files to upload</span>
+                                                    </div>
+                                                    <input type="file" class="upload" name="picture" accept="image/*"> -->
+                                                </div>
+                                                <label>***รูปสุดท้ายจะเป็นรูปหน้าปก</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

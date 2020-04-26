@@ -7,7 +7,7 @@
     $query = "SELECT *, round(AVG(score_to),1) as sot FROM users_add_hotel as addho 
                     INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
                     INNER JOIN users as us ON us.id = addho.ref_id
-                    INNER JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id 
+                    LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id 
                 WHERE addho.status_hotel = 'ผ่านการตรวจสอบ'
                 GROUP BY addho.ref_id";
 
@@ -48,7 +48,14 @@
     <!-- listing-item-container -->
     <div class="listing-item-container init-grid-items fl-wrap">
         <!-- listing-item  -->
-        <?php while ($row = mysqli_fetch_array($result)) { ?>
+        <?php while ($row = mysqli_fetch_array($result)) { 
+            $sot=$row['sot'];
+            if ($sot != ''){
+                $sot=$row['sot'];
+            } else {
+                $sot='0';
+            } 
+        ?>
         <div class="listing-item">
             <article class="geodir-category-listing fl-wrap">
                 <div class="geodir-category-img">
@@ -61,7 +68,7 @@
                         <div class="listing-rating card-popup-rainingvis" data-starrating2="<?php echo $row['sot']; ?>"></div>
                         <div class="rate-class-name">
                             <div class="score"><strong>คะแนน</strong></div>
-                            <span><?php echo $row['sot']; ?></span>                                             
+                            <span><?php echo $sot; ?></span>                                             
                         </div>
                     </div>
                 </div>

@@ -59,11 +59,11 @@
     $result_book = mysqli_query($conn, $query);
 
     // ลบจำนวนห้องที่เหลือ
-    $query_nb = "UPDATE room_in_hotel
-                    SET no_bed = no_bed-1
-                    WHERE id_room = " . $id_room; 
+    // $query_nb = "UPDATE room_in_hotel
+    //                 SET no_bed = no_bed-1
+    //                 WHERE id_room = " . $id_room; 
         
-    $result_nb = mysqli_query($conn, $query_nb);
+    // $result_nb = mysqli_query($conn, $query_nb);
     
     if ($result_book){
         echo '<script> alert("การจองเสร็จสมบูรณ์"); </script>';

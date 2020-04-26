@@ -111,12 +111,12 @@
                             <?php 
 
                                 // โรงแรมที่เพิ่มล่าสุด
-                                $query = "SELECT *, round(AVG(score_to),1) as sot FROM users_add_hotel as addho 
+                                $query = "SELECT *, round(AVG(rev.score_to),1) as sot FROM users_add_hotel as addho 
                                                 INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
-                                                INNER JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id
-                                                INNER JOIN users as us ON us.id = rev.ref_user
+                                                INNER JOIN users as us ON us.id = addho.ref_id
+                                                LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id
                                             WHERE addho.status_hotel = 'ผ่านการตรวจสอบ' 
-                                            GROUP BY addho.id_hotel";
+                                            GROUP BY addho.ref_id";
 
                                 $result = mysqli_query($conn, $query); 
                                 $row = mysqli_fetch_array($result);
@@ -150,7 +150,15 @@
                                                 <?php 
                                                     $result = mysqli_query($conn, $query);
                                                     $i=1;
-                                                    while ($row = mysqli_fetch_array($result)) {      
+                                                    
+                                                    while ($row = mysqli_fetch_array($result)) {
+                                                           
+                                                    $sot=$row['sot'];
+                                                    if ($sot != ''){
+                                                        $sot=$row['sot'];
+                                                    } else {
+                                                        $sot='0';
+                                                    }  
                                                 ?>
                                                 <!--slick-slide-item-->
                                                 <div class="slick-slide-item">
@@ -165,7 +173,8 @@
                                                                 <div class="geodir-category-location"><a href="#" class="single-map-item"><i class="fas fa-map-marker-alt"></i><?php echo "ต.",$row['sub_area']," อ.",$row['area'], " " ,$row['province']; ?></a></div>
                                                                 <div class="rate-class-name">
                                                                     <div class="score"><strong>คะแนน </strong></div>
-                                                                    <span><?php echo $row['sot']; ?></span>                                     
+                                                                    <span><?php echo $sot; ?></span>
+                                                                                                         
                                                                 </div>
                                                             </div>
                                                         </div>

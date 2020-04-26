@@ -14,9 +14,10 @@ if(isset($_POST['search'])){
 
     $location = $_POST['location'];
 
-    $query = "SELECT * FROM users_add_hotel as addho 
+    $query = "SELECT *, round(AVG(score_to),1) as sot FROM users_add_hotel as addho 
                     INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
                     INNER JOIN users as us ON us.id = addho.ref_id 
+                    LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id 
                 WHERE addho.province LIKE '%$location%' AND addho.status_hotel = 'ผ่านการตรวจสอบ'
                 GROUP BY addho.ref_id";
 
@@ -63,7 +64,14 @@ if(isset($_POST['search'])){
 
 
         <!-- listing-item  -->
-        <?php while ($row = mysqli_fetch_array($result)) { ?>
+        <?php while ($row = mysqli_fetch_array($result)) { 
+            $sot=$row['sot'];
+            if ($sot != ''){
+                $sot=$row['sot'];
+            } else {
+                $sot='0';
+            } 
+        ?>
         <div class="listing-item">
             <article class="geodir-category-listing fl-wrap">
                 <div class="geodir-category-img">
@@ -73,10 +81,10 @@ if(isset($_POST['search'])){
                     </div>
                     <!-- <div class="sale-window">Sale 20%</div> -->
                     <div class="geodir-category-opt">
-                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                        <div class="listing-rating card-popup-rainingvis" data-starrating2="<?php echo $row['sot']; ?>"></div>
                         <div class="rate-class-name">
-                            <div class="score"><strong>Very Good</strong>27 Reviews </div>
-                            <span>5.0</span>                                             
+                            <div class="score"><strong>คะแนน</strong></div>
+                            <span><?php echo $sot; ?></span>                                               
                         </div>
                     </div>
                 </div>

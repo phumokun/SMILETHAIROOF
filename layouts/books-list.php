@@ -38,7 +38,6 @@
                 <ul class="dashboard-listing-table-opt  fl-wrap">
                     <!-- ทำปุ่ม Cheack in , cheack out -->
                     <li><a href="layouts/action-checkin-room.php?id=<?php echo $row['id_bk']; ?>" class="edit-btn">Check In</a></li>
-                    <li><a href="layouts/action-checkout-room.php?id=<?php echo $row['id_bk']; ?>" class="del-btn">Check Out</a></li>
                     <li><a href="layouts/action-cancel-room.php?id=<?php echo $row['id_bk']; ?>" class="del-btn">Cancel</a></li>
                 </ul>
             </div>

@@ -56,7 +56,7 @@
                                     <input name="password" id="password" type="password" onClick="this.select()" value="" minlength="6" required style="margin-bottom:10px">
                                     <p style="text-align:left ; font-size:12px">ความปลอดภัยของรหัส : <span id="result"> </span></p>
                                     <label>ยืนยันพาสเวิร์ด</span> </label>
-                                    <input name="con_password" id="con_password" type="password"   onClick="this.select()" value="" minlength="6" required>
+                                    <input name="con_password" id="con_password" type="password"  onClick="this.select()" value="" minlength="6" required>
                                     <button type="submit" name="submit_register" class="log-submit-btn color-bg"  ><span>สมัครสมาชิก</span></button>
                                 </form>
                             </div>
