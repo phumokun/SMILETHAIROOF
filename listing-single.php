@@ -200,12 +200,6 @@
                     <section class="grey-blue-bg small-padding scroll-nav-container" id="sec2">
                         <!--  scroll-nav-wrapper  -->
                         <div class="scroll-nav-wrapper fl-wrap">
-                            <div class="hidden-map-container fl-wrap">
-                                <input id="pac-input" class="controls fl-wrap controls-mapwn" type="text" placeholder="What Nearby ?   Bar , Gym , Restaurant ">
-                                <div class="map-container">
-                                    <div id="singleMap" data-latitude="<?php echo $row['latitude']; ?>" data-longitude="<?php echo $row['longitude']; ?>"></div>
-                                </div>
-                            </div>
                             <div class="clearfix"></div>
                             <div class="container">
                                 <nav class="scroll-nav scroll-init">
@@ -521,6 +515,9 @@
                                                         $result_bk = mysqli_query($conn, $query_bk);
                                                         $row_bk = mysqli_fetch_array($result_bk);
 
+                                                        $num_adult = $row_bk['num_adult'];
+                                                        $num_kid = $row_bk['num_kid'];
+
                                                         // $id_host = $_GET['act'];
                                                         
                                                         // echo '<pre>';
@@ -569,14 +566,14 @@
                                                                 <div class="quantity-item fl-wrap">
                                                                     <label><h6>ผู้ใหญ่</h6></label>
                                                                     <div class="quantity">
-                                                                        <input type="number" name="qty3" min="0" max="3" step="1" value="0">
+                                                                        <input type="number" name="qty3" min="0" max="<?php echo $num_adult; ?>" step="1" value="0">
                                                                         <input type="text" name="item_total" class="hid-input" value="0" data-form="{qty3} * {repopt} - {repopt}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="quantity-item fl-wrap fcit">
                                                                     <label>เด็ก</label>
                                                                     <div class="quantity">
-                                                                        <input type="number"  name="qty2" min="0" max="3" step="1" value="0">
+                                                                        <input type="number"  name="qty2" min="0" max="<?php echo $num_kid; ?>" step="1" value="0">
                                                                         <select name="sale" class="hid-input">
                                                                             <option value=".7"  selected>sale</option>
                                                                         </select>

@@ -35,22 +35,22 @@
                 <!--col-list-search-input-item end-->
                 <!--col-list-search-input-item -->
                 <div class="col-list-search-input-item fl-wrap">
-                    <div class="quantity-item">
+                    <!-- <div class="quantity-item">
                         <label>ห้อง</label>
                         <div class="quantity">
                             <input type="number" min="1" max="3" step="1" value="1">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="quantity-item">
                         <label>ผู้ใหญ่</label>
                         <div class="quantity">
-                            <input type="number" min="1" max="5" step="1" value="1">
+                            <input type="number" name="num_adult" min="1" max="5" step="1" value="0">
                         </div>
                     </div>
                     <div class="quantity-item">
                         <label>เด็ก</label>
                         <div class="quantity">
-                            <input type="number" min="0" max="3" step="1" value="0">
+                            <input type="number" name="num_kid" min="0" max="5" step="1" value="0">
                         </div>
                     </div>
                 </div>
@@ -85,49 +85,10 @@
                         <!-- Checkboxes end -->
                     </div>
                 </div>
-                <!--col-list-search-input-item end--> 
-                <!--col-list-search-input-item -->
-                <div class="col-list-search-input-item fl-wrap">
-                    <label>สิ่งอำนวยความสะดวก</label>
-                    <div class="search-opt-container fl-wrap">
-                        <!-- Checkboxes -->
-                        <ul class="fl-wrap filter-tags half-tags">
-                            <li>
-                                <input id="check-aaa5" type="checkbox" name="check" checked>
-                                <label for="check-aaa5">Free WiFi</label>
-                            </li>
-                            <li>
-                                <input id="check-bb5" type="checkbox" name="check">
-                                <label for="check-bb5">Parking</label>
-                            </li>
-                            <li>                                       
-                                <input id="check-dd5" type="checkbox" name="check">
-                                <label for="check-dd5">Fitness Center</label>
-                            </li>
-                        </ul>
-                        <!-- Checkboxes end -->
-                        <!-- Checkboxes -->
-                        <ul class="fl-wrap filter-tags half-tags">
-                            <li>                                       
-                                <input id="check-ff5" type="checkbox" name="check">
-                                <label for="check-ff5">Airport Shuttle</label>
-                            </li>
-                            <li>                                          
-                                <input id="check-cc5" type="checkbox" name="check" checked>
-                                <label for="check-cc5">Non-smoking Rooms</label>
-                            </li>
-                            <li>                                          
-                                <input id="check-c4" type="checkbox" name="check" checked>
-                                <label for="check-c4">Air Conditioning</label>
-                            </li>
-                        </ul>
-                        <!-- Checkboxes end -->
-                    </div>
-                </div>
-                <!--col-list-search-input-item end-->  
+                <!--col-list-search-input-item end-->
                 <!--col-list-search-input-item  -->                                         
                 <div class="col-list-search-input-item fl-wrap">
-                    <button name="search" class="header-search-button" onclick="window.location.href='listing.html'">Search <i class="far fa-search"></i></button>
+                    <button name="search" class="header-search-button" onclick="window.location.href='listing.html'">ค้นหา <i class="far fa-search"></i></button>
                 </div>
                 <!--col-list-search-input-item end--> 
             </div>

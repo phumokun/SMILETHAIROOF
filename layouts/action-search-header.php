@@ -9,16 +9,32 @@
 // exit();
 
 $bookdates = explode( " - ",$_POST['bookdates']);
+$num_adult  = $_POST['num_adult'];
+$num_kid  = $_POST['num_kid'];
 
 if(isset($_POST['search'])){
 
     $location = $_POST['location'];
 
+    $countbk = "SELECT *,COUNT(bk.ref_room) as crfr FROM books as bk 
+                    INNER JOIN room_in_hotel as inho ON inho.id_room = bk.ref_room 
+                WHERE (bk.bkin BETWEEN '$bookdates[0]' AND '$bookdates[1]') OR (bk.bkout BETWEEN '$bookdates[0]' AND '$bookdates[1]') OR ('$bookdates[0]' BETWEEN bk.bkin AND bk.bkout) OR ('$bookdates[1]' BETWEEN bk.bkin AND bk.bkout) 
+                GROUP BY inho.id_room";
+    $resultbk = mysqli_query($conn, $countbk);
+    $rowbk = mysqli_fetch_array($resultbk);
+
+    $crfr = $rowbk['crfr'];
+    if($crfr != ''){
+        $crfr = $rowbk['crfr'];
+    }else{
+        $crfr = '0';
+    }
+
     $query = "SELECT *, round(AVG(score_to),1) as sot FROM users_add_hotel as addho 
                     INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
-                    INNER JOIN users as us ON us.id = addho.ref_id 
+                    INNER JOIN users as us ON us.id = addho.ref_id
                     LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id 
-                WHERE addho.province LIKE '%$location%' AND addho.status_hotel = 'ผ่านการตรวจสอบ'
+                WHERE addho.province LIKE '%$location%' AND addho.status_hotel = 'ผ่านการตรวจสอบ' AND $num_adult <= inho.num_adult AND $num_kid <= inho.num_kid AND $crfr < inho.no_bed
                 GROUP BY addho.ref_id";
 
     $result = mysqli_query($conn, $query); 
@@ -93,7 +109,7 @@ if(isset($_POST['search'])){
                         <div class="geodir-category-content-title-item">
                             <h3 class="title-sin_map"><a href="listing-single.php?id=<?php echo $row['id']; ?> " target="_blank"><?php echo $row['name_hotel']; ?></a></h3>
                             <div class="geodir-category-location fl-wrap"><a href="#0" class="map-item">
-                                <i class="fas fa-map-marker-alt"></i> <?php echo "ต.",$row['sub_area']," อ.",$row['area']," จ.",$row['province']; ?></a></div>
+                                <i class="fas fa-map-marker-alt"></i> <?php echo "ต.",$row['sub_area']," อ.",$row['area']," ",$row['province']; ?></a></div>
                         </div>
                     </div>
                     <p><?php echo $row['detail_hotel']; ?></p>
@@ -104,7 +120,7 @@ if(isset($_POST['search'])){
                         <li><i class="fal fa-utensils"></i><span> Restaurant</span></li>
                     </ul>
                     <div class="geodir-category-footer fl-wrap">
-                        <div class="geodir-category-price">ราคา<span> <?php echo $row['price_adult']; ?> บาท</span></div>
+                        <div class="geodir-category-price">ราคา<span> <?php echo $row['price_room']; ?> บาท</span></div>
                         <div class="geodir-opt-list">
                             <a href="#0" class="map-item"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">On the map <strong>1</strong></span></a>
                             <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Save</span></a>

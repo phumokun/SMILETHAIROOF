@@ -221,16 +221,19 @@
                             <div class="swiper-button-next sw-btn"><i class="fa fa-long-arrow-right"></i></div>
                             <div class="text-carousel single-carousel fl-wrap">
                                 <?php 
-                                    $result = mysqli_query($conn, $query);
-                                    while ($row = mysqli_fetch_array($result)) {      
+                                    $query_re = "SELECT *,round(AVG(rev.score_to),1) as sot2 FROM review_hotels as rev                                            
+                                                    INNER JOIN users as us ON us.id = rev.ref_user";
+
+                                    $result_re = mysqli_query($conn, $query_re); 
+                                    while($row_re = mysqli_fetch_array($result_re)) {
                                 ?>
                                 <!--slick-item -->
                                 <div class="slick-item">
                                     <div class="text-carousel-item">
-                                        <div class="popup-avatar"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" alt=""></div>
-                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="<?php echo $row['sot']; ?>"> </div>
-                                        <div class="review-owner fl-wrap"><?php echo $row['name']; ?></div>
-                                        <p> "<?php echo $row['comment_ho']; ?>"</p>
+                                        <div class="popup-avatar"><img src="images/img_users/<?php echo $row_re['picture_users']; ?>" alt=""></div>
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="<?php echo $row_re['sot2']; ?>"> </div>
+                                        <div class="review-owner fl-wrap"><?php echo $row_re['name']; ?></div>
+                                        <p> "<?php echo $row_re['comment_ho']; ?>"</p>
                                     </div>
                                 </div>
                                 <?php } ?>

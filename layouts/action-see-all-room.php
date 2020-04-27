@@ -77,7 +77,7 @@
                         <div class="geodir-category-content-title-item">
                             <h3 class="title-sin_map"><a href="listing-single.php?id=<?php echo $row['id']; ?>" target="_blank"><?php echo $row['name_hotel']; ?></a></h3>
                             <div class="geodir-category-location fl-wrap"><a href="#0" class="map-item">
-                                <i class="fas fa-map-marker-alt"></i> <?php echo "ต.",$row['sub_area']," อ.",$row['area']," จ.",$row['province']; ?></a></div>
+                                <i class="fas fa-map-marker-alt"></i> <?php echo "ต.",$row['sub_area']," อ.",$row['area']," ",$row['province']; ?></a></div>
                         </div>
                     </div>
                     <p><?php echo $row['detail_hotel']; ?></p>
@@ -88,7 +88,7 @@
                         <li><i class="fal fa-utensils"></i><span> Restaurant</span></li>
                     </ul>
                     <div class="geodir-category-footer fl-wrap">
-                        <div class="geodir-category-price">ราคา<span> <?php echo $row['price_adult']; ?> บาท</span></div>
+                        <div class="geodir-category-price">ราคา<span> <?php echo $row['price_room']; ?> บาท</span></div>
                         <div class="geodir-opt-list">
                             <a href="#0" class="map-item"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">On the map <strong>1</strong></span></a>
                             <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Save</span></a>

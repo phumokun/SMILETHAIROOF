@@ -16,8 +16,10 @@ session_start();
     if(isset($_POST['submit_edit_room'])){
 
         $name_room = $_POST['name_room'];
-        $price_adult = $_POST['price_adult'];
-        $price_kid = $_POST['price_kid'];
+        $price_room = $_POST['price_room'];
+        // $price_kid = $_POST['price_kid'];
+        $num_adult = $_POST['num_adult'];
+        $num_kid = $_POST['num_kid'];
         $type_bed = $_POST['type_bed'];
         $no_bed = $_POST['no_bed'];
         $detail_room = $_POST['detail_room'];
@@ -63,8 +65,9 @@ session_start();
         
         $in_hotel ="UPDATE room_in_hotel 
                         SET name_room = '" . $name_room . "',
-                            price_adult = '" . $price_adult . "',
-                            price_kid = '" . $price_kid . "',
+                            price_room = '" . $price_room . "',
+                            num_adult = '" . $num_adult . "',
+                            num_kid = '" . $num_kid . "',
                             type_bed = '" . $type_bed . "',
                             no_bed = '" . $no_bed . "',
                             detail_room = '" . $detail_room . "',

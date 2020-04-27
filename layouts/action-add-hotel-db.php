@@ -68,8 +68,8 @@ session_start();
         $postal_code = $_POST['postal_code'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
-        $longitude = $_POST['longitude'];
-        $latitude = $_POST['latitude'];
+        // $longitude = $_POST['longitude'];
+        // $latitude = $_POST['latitude'];
         $detail_hotel = $_POST['detail_hotel'];
         // การแก้ Error หากผู้ใช้งานไม่ได้เลือก
         $option_hotel = "";
@@ -90,8 +90,6 @@ session_start();
                                                     postal_code,
                                                     phone_hotel,
                                                     email_hotel,
-                                                    longitude,
-                                                    latitude,
                                                     detail_hotel,
                                                     option_hotel,
                                                     status_hotel)
@@ -107,8 +105,6 @@ session_start();
                         '" . $postal_code . "',
                         '" . $phone . "',
                         '" . $email . "',
-                        '" . $longitude . "',
-                        '" . $latitude . "',
                         '" . $detail_hotel . "',
                         '" . $option_hotel . "',
                         '" . "รอการตรวจสอบ" . "')";
@@ -116,8 +112,10 @@ session_start();
         $result = mysqli_query($conn, $add_hotel);
 
         $name_room = $_POST['name_room'];
-        $price_adult = $_POST['price_adult'];
-        $price_kid = $_POST['price_kid'];
+        $price_room = $_POST['price_room'];
+        $num_adult = $_POST['num_adult'];
+        $num_kid = $_POST['num_kid'];
+        // $price_kid = $_POST['price_kid'];
         $type_bed = $_POST['type_bed'];
         $no_bed = $_POST['no_bed'];
         $detail_room = $_POST['detail_room'];
@@ -132,8 +130,9 @@ session_start();
 
         $in_hotel ="INSERT INTO room_in_hotel (ref_id,
                                                 name_room,
-                                                price_adult,
-                                                price_kid,
+                                                price_room,
+                                                num_adult,
+                                                num_kid,
                                                 type_bed,
                                                 no_bed,
                                                 detail_room,
@@ -143,8 +142,9 @@ session_start();
                                                 instagram)
                         VALUE('" . $id . "',
                         '" . $name_room . "',
-                        '" . $price_adult . "',
-                        '" . $price_kid . "',
+                        '" . $price_room . "',
+                        '" . $num_adult . "',
+                        '" . $num_kid . "',
                         '" . $type_bed . "',
                         '" . $no_bed . "',
                         '" . $detail_room . "',

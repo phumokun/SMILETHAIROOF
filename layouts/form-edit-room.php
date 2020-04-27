@@ -105,20 +105,6 @@
                             <input type="text" name="phone" placeholder="กรอกหมายเลขโทรศัพท์ของท่าน" value="<?php echo $row['phone_hotel']; ?>" readonly/>
                             <label>อีเมลล์<i class="far fa-envelope"></i>  </label>
                             <input type="email" name="email" placeholder="กรอกอีเมลล์ของท่าน" value="<?php echo $row['email_hotel']; ?>" readonly/>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>ลองติจูด<i class="fal fa-long-arrow-alt-right"></i>  </label>
-                                    <input type="text" name="longitude" placeholder="Map Longitude"  id="long" value="<?php echo $row['longitude']; ?>" readonly/>                                                
-                                </div>
-                                <div class="col-md-6">
-                                    <label>ละติจูด<i class="fal fa-long-arrow-alt-down"></i> </label>
-                                    <input type="text" name="latitude" placeholder="Map Latitude"  id="lat" value="<?php echo $row['latitude']; ?>" readonly/>                                            
-                                </div>
-                            </div>
-                            <div class="map-container">
-                                <div id="singleMap" class="vis-map" data-latitude="7.007789891209252" data-longitude="100.47434807149901"></div>
-                            </div>
                         </div>
                     </div>
                                                     
@@ -184,12 +170,24 @@
                                         <input type="text" name="name_room" placeholder="กรอกชื่อห้องของท่าน" value="<?php echo $row['name_room']; ?>" require/>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>ราคา (สำหรับผู้ใหญ่)<i class="fal fa-dollar-sign"></i></label>
-                                        <input type="text" name="price_adult" placeholder="บาท" value="<?php echo $row['price_adult']; ?>" require/>
+                                        <label>ราคา<i class="fal fa-dollar-sign"></i></label>
+                                        <input type="text" name="price_room" placeholder="บาท" value="<?php echo $row['price_room']; ?>" require/>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label>ราคา (สำหรับเด็ก)<i class="fal fa-dollar-sign"></i></label>
-                                        <input type="text" name="price_kid" placeholder="บาท" value="<?php echo $row['price_kid']; ?>" require/>
+                                    <div class="col-md-2">
+                                        <label>จำกัดห้องละ (ผู้ใหญ่)<i class="fal fa-dollar-sign"></i></label>
+                                        <div class="quantity-item">
+                                            <div class="quantity">
+                                                <input type="number" name="num_adult" min="1" max="5" step="1" value="<?php echo $row['num_adult']; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>จำกัดห้องละ (เด็ก)<i class="fal fa-dollar-sign"></i></label>
+                                        <div class="quantity-item">
+                                            <div class="quantity">
+                                                <input type="number" name="num_kid" min="1" max="5" step="1" value="<?php echo $row['num_kid']; ?>">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -309,7 +307,7 @@
                                                         </div> -->
                                                         <!-- The container for the uploaded files -->
                                                         <div id="files" class="files"></div>
-                                                        <input type="text" name="picture_main" id="uploaded_file_name" hidden>
+                                                        <input type="text" name="picture_main" id="uploaded_file_name" value="<?php echo $row['picture']; ?>" hidden>
                                                         <br>
                                                     </div>
                                                     <!-- <div class="fu-text">

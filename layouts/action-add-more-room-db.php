@@ -26,8 +26,10 @@
 
         
         $name_room = $_POST['name_room'];
-        $price_adult = $_POST['price_adult'];
-        $price_kid = $_POST['price_kid'];
+        $price_room = $_POST['price_room'];
+        // $price_kid = $_POST['price_kid'];
+        $num_adult = $_POST['num_adult'];
+        $num_kid = $_POST['num_kid'];
         $type_bed = $_POST['type_bed'];
         $no_bed = $_POST['no_bed'];
         $detail_room = $_POST['detail_room'];
@@ -72,8 +74,9 @@
         
         $in_hotel ="INSERT INTO room_in_hotel (ref_id,
                                                 name_room,
-                                                price_adult,
-                                                price_kid,
+                                                price_room,
+                                                num_adult,
+                                                num_kid,
                                                 type_bed,
                                                 no_bed,
                                                 detail_room,
@@ -83,8 +86,9 @@
                                                 instagram)
                         VALUE('" . $id . "',
                         '" . $name_room . "',
-                        '" . $price_adult . "',
-                        '" . $price_kid . "',
+                        '" . $price_room . "',
+                        '" . $num_adult . "',
+                        '" . $num_kid . "',
                         '" . $type_bed . "',
                         '" . $no_bed . "',
                         '" . $detail_room . "',

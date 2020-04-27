@@ -118,7 +118,7 @@
             <form action="listing2.php?act=search" method="post">
                 <div class="row">
                     <!-- header-search-input-item -->
-                    <div class="col-sm-7">
+                    <div class="col-sm-4">
                         <div class="col-list-search-input-item in-loc-dec fl-wrap not-vis-arrow">
                             <label>เมืองที่พัก</label>
                             <div class="listsearch-input-item">
@@ -145,28 +145,28 @@
                     </div>
                     <!-- header-search-input-item end -->                             
                     <!-- header-search-input-item -->
-                    <!-- <div class="col-sm-3">
+                    <div class="col-sm-3">
                         <div class="header-search-input-item fl-wrap">
-                            <div class="quantity-item">
+                            <!-- <div class="quantity-item">
                                 <label>ห้อง</label>
                                 <div class="quantity">
                                     <input type="number" name="sum_room" min="1" max="3" step="1" value="1">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="quantity-item">
                                 <label>ผู้ใหญ่</label>
                                 <div class="quantity">
-                                    <input type="number" name="adult" min="1" max="3" step="1" value="1">
+                                    <input type="number" name="num_adult" min="1" max="5" step="1" value="0">
                                 </div>
                             </div>
                             <div class="quantity-item">
                                 <label>เด็ก</label>
                                 <div class="quantity">
-                                    <input type="number"  min="0" max="3" step="1" value="0">
+                                    <input type="number" name="num_kid" min="0" max="5" step="1" value="0">
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- header-search-input-item end -->                             
                     <!-- header-search-input-item -->
                     <div class="col-sm-2">

@@ -12,8 +12,6 @@ CREATE TABLE `users_add_hotel` (
   `postal_code` varchar(250) NOT NULL,
   `phone_hotel` varchar(250) NOT NULL,
   `email_hotel` varchar(50) NOT NULL,
-  `longitude` varchar(500) NOT NULL,
-  `latitude` varchar(250) NOT NULL,
   `detail_hotel` varchar(1000) NOT NULL,
   `option_hotel` varchar(250) NOT NULL,
   `status_hotel` varchar(250) NOT NULL,

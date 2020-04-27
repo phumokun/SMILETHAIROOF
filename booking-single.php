@@ -31,15 +31,15 @@
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_array($result); 
 
-    $price_adult = $row['price_adult'];
-    $price_kid = $row['price_kid'];
+    $price_room = $row['price_room'];
+    // $price_kid = $row['price_kid'];
     $id_room = $row['id_room'];
     $ref_id = $row['ref_id'];
     $id_hotel = $row['id_hotel'];
 
 
     // คำณวนราคา
-    $price = ((($price_adult * $adult) + ($price_kid * $kid)) * $sumday);
+    $price = $price_room*$sumday;
 
 
 ?>
@@ -152,52 +152,6 @@
                                                             
                                                             <a  href="#"  class="next-form action-button btn no-shdow-btn color-bg">ยืนยัน<i class="fal fa-angle-right"></i></a>
                                                             <!-- <button type="submit" name="submit" class="action-button btn no-shdow-btn color-bg">จองที่พัก<i class="fal fa-angle-right"></i></a> -->
-                                                        </fieldset>
-                                                        <fieldset class="fl-wrap">
-                                                            <div class="list-single-main-item-title fl-wrap">
-                                                                <h3>ที่อยู่ปัจจุบัน</h3>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <label>บ้านเลขที่<i class="fal fa-globe-asia"></i></label>
-                                                                    <input type="text" placeholder="กรอกบ้านเลขที่" value=""/>                                                  
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <label>ถนน<i class="fal fa-globe-asia"></i></label>
-                                                                    <input type="text" placeholder="กรอกถนน" value=""/>                                                  
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <label>ซอย<i class="fal fa-globe-asia"></i></label>
-                                                                    <input type="text" placeholder="กรอกซอย" value=""/>                                                  
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <label>อำเภอ<i class="fal fa-road"></i> </label>
-                                                                    <input type="text" placeholder="กรอกอำเภอ" value=""/>                                                  
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <label>ตำบล<i class="fal fa-road"></i> </label>
-                                                                    <input type="text" placeholder="กรอกตำบล" value=""/>                                                  
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <label>จังหวัด</label>
-                                                                    <div class="listsearch-input-item ">
-                                                                        <select data-placeholder="เลือกจังหวัดที่ท่านอาศัย" class="chosen-select" >
-                                                                            <?php include('layouts/option-city.php'); ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-4">
-                                                                    <label>รหัสไปรษณย์<i class="fal fa-barcode"></i> </label>
-                                                                    <input type="text" placeholder="กรอกรหัสไปรษณีย์" value=""/>
-                                                                </div>
-                                                            </div>
-                                                            <span class="fw-separator"></span>
-                                                            <a  href="#"  class="previous-form action-button back-form   color-bg"><i class="fal fa-angle-left"></i> Back</a>
-                                                            <a  href="#"  class="next-form back-form action-button btn no-shdow-btn color-bg">Payment Step <i class="fal fa-angle-right"></i></a>
                                                         </fieldset>
                                                         <fieldset class="fl-wrap">
                                                             <div class="list-single-main-item-title fl-wrap">

@@ -2,10 +2,27 @@
 
     session_start();
 
+    include_once 'connectdb.php';
+
     include('layouts/alert-please-login.php');
 
-    $name = $_SESSION['name'];
-    $email = $_SESSION['email'];
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        // ใช้ INNER JOIN เพราะ ที่อยู่โรงแรมกับห้องในโรงแรมแยก Table กัน
+        $query = "SELECT * FROM review_hotels as rev 
+                        INNER JOIN users as us ON us.id = rev.ref_user
+                    WHERE ref_hotel = $id";
+                
+        $result = mysqli_query($conn, $query);
+
+        // echo $query;
+        // exit();
+        
+        // echo '<pre>';
+        // print_r ($name_ho);
+        // echo '</pre>';
+        // exit();
+    }
 
 ?>
 <!DOCTYPE HTML>
@@ -76,74 +93,25 @@
                                             <h3>Reviews</h3>
                                         </div>
                                         <div class="reviews-comments-wrap">
+                                            <?php while ($row = mysqli_fetch_array($result)) { ?>
                                             <!-- reviews-comments-item -->  
                                             <div class="reviews-comments-item">
                                                 <div class="review-comments-avatar">
-                                                    <img src="images/avatar/1.jpg" alt=""> 
+                                                    <img src="images/img_users/<?php echo $row['picture_users']; ?>" alt=""> 
                                                 </div>
                                                 <div class="reviews-comments-item-text">
-                                                    <h4><a href="#">Liza Rose</a> on <a href="listing-single.html" class="reviews-comments-item-link">Holiday Home</a></h4>
+                                                    <h4><a href="#"><?php echo $row['name']; ?></a></a></h4>
                                                     <div class="review-score-user">
-                                                        <span>4.4</span>
-                                                        <strong>Good</strong>
+                                                        <span><?php echo $row['score_to']; ?></span>
+                                                        <strong>คะแนน</strong>
                                                     </div>
                                                     <div class="clearfix"></div>
-                                                    <p>" Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. "</p>
-                                                    <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>12 April 2018</span><a href="#"><i class="fal fa-reply"></i> Reply</a></div>
+                                                    <p>"<?php echo $row['comment_ho']; ?>"</p>
+                                                    <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i><?php echo $row['create_date_co']; ?></span></div>
                                                 </div>
                                             </div>
                                             <!--reviews-comments-item end--> 
-                                            <!-- reviews-comments-item -->  
-                                            <div class="reviews-comments-item">
-                                                <div class="review-comments-avatar">
-                                                    <img src="images/avatar/1.jpg" alt=""> 
-                                                </div>
-                                                <div class="reviews-comments-item-text">
-                                                    <h4><a href="#">Adam Koncy</a> on <a href="listing-single.html" class="reviews-comments-item-link">Premium Plaza Hotel </a></h4>
-                                                    <div class="review-score-user">
-                                                        <span>4.7</span>
-                                                        <strong>Very Good</strong>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                    <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. "</p>
-                                                    <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>03 December 2017</span><a href="#"><i class="fal fa-reply"></i> Reply</a></div>
-                                                </div>
-                                            </div>
-                                            <!--reviews-comments-item end-->  
-                                            <!-- reviews-comments-item -->  
-                                            <div class="reviews-comments-item">
-                                                <div class="review-comments-avatar">
-                                                    <img src="images/avatar/1.jpg" alt=""> 
-                                                </div>
-                                                <div class="reviews-comments-item-text">
-                                                    <h4><a href="#">Liza Rose </a>on  <a href="listing-single.html" class="reviews-comments-item-link">Park Central </a></h4>
-                                                    <div class="review-score-user">
-                                                        <span>4.4</span>
-                                                        <strong>Good</strong>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                    <p>" Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. "</p>
-                                                    <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>12 April 2018</span><a href="#"><i class="fal fa-reply"></i> Reply</a></div>
-                                                </div>
-                                            </div>
-                                            <!--reviews-comments-item end--> 
-                                            <!-- reviews-comments-item -->  
-                                            <div class="reviews-comments-item">
-                                                <div class="review-comments-avatar">
-                                                    <img src="images/avatar/1.jpg" alt=""> 
-                                                </div>
-                                                <div class="reviews-comments-item-text">
-                                                    <h4><a href="#">Adam Koncy</a> on  <a href="listing-single.html" class="reviews-comments-item-link">Grand Hero Palace </a></h4>
-                                                    <div class="review-score-user">
-                                                        <span>4.7</span>
-                                                        <strong>Very Good</strong>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                    <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. "</p>
-                                                    <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>03 December 2017</span><a href="#"><i class="fal fa-reply"></i> Reply</a></div>
-                                                </div>
-                                            </div>
-                                            <!--reviews-comments-item end-->                                                                                                                    
+                                            <?php } ?>                                                                                                                  
                                         </div>
                                     </div>
                                     <!-- pagination-->
