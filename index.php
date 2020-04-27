@@ -54,7 +54,7 @@
                                     <div class="section-title-separator"><span></span></div>
                                     <h2>SMILE THAI ROOF</h2>
                                     <span class="section-separator"></span>                                    
-                                    <h3>SMTR</h3>
+                                    <h3>เว็ปไซต์รวบรวมแหล่งที่พักในประเทศไทย</h3>
                                 </div>
                                 <!-- <form action="">
                                     <div class="main-search-input-wrap">
@@ -104,7 +104,7 @@
                                 <div class="section-title-separator"><span></span></div>
                                 <h2>โรงแรมที่เพิ่มล่าสุด</h2>
                                 <span class="section-separator"></span>
-                                <p>test</p>
+                                <p>10 โรงแรมที่เพิ่มล่าสุดของทางเว็บไซต์</p>
                             </div>
                          </div>
                          
@@ -187,7 +187,7 @@
                                 <div class="section-title-separator"><span></span></div>
                                 <h2>รีวิวแหล่งที่พัก</h2>
                                 <span class="section-separator"></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.</p>
+                                <p>ความคิดเห็นและคะแนนที่ผู้ใช้งานให้กับโรงแรมต่าง ๆ</p>
                             </div>
                         </div>
                         <div class="clearfix"></div>

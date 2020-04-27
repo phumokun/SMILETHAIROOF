@@ -121,11 +121,11 @@ if(isset($_POST['search'])){
                     </ul>
                     <div class="geodir-category-footer fl-wrap">
                         <div class="geodir-category-price">ราคา<span> <?php echo $row['price_room']; ?> บาท</span></div>
-                        <div class="geodir-opt-list">
+                        <!-- <div class="geodir-opt-list">
                             <a href="#0" class="map-item"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">On the map <strong>1</strong></span></a>
                             <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Save</span></a>
                             <a href="#" class="geodir-js-booking"><i class="fal fa-exchange"></i><span class="geodir-opt-tooltip">Find Directions</span></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </article>

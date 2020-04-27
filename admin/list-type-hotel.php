@@ -25,7 +25,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Normal Table | Notika - Notika Admin Template</title>
+    <title>Admin หน้าแสดงรายการประเภทที่พัก</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -190,11 +190,12 @@
                             <h2>ประเภทที่พักที่มีในระบบ</h2>
                         </div>
                         <div class="bsc-tbl">
-                            <table class="table table-sc-ex">
+                            <table class="table table-sc-ex material-design-btn">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>ประเภทที่พัก</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -202,6 +203,9 @@
                                   <tr>
                                       <td><?php echo $row['id']; ?></td>
                                       <td><?php echo $row['type_hotel']; ?></td>
+                                      <td>
+                                        <button type="button" name="delete" class="btn notika-btn-red waves-effect" onclick="del(<?php echo $row['id']; ?>)">ลบ</button>
+                                      </td>
                                   </tr>
                                   <?php } ?>
                                 </tbody>
@@ -286,6 +290,13 @@
     <!-- main JS
 		============================================ -->
     <script src="js/main.js"></script>
+    <script>
+      function del(id) {
+        if (confirm('ต้องการลบรายการนี้ใช่หรือไม่')) {
+            window.location.href = "layouts/action-del-tyho.php?id=" + id;
+        }
+      }
+  </script>
 </body>
 
 </html>

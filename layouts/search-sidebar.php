@@ -64,10 +64,10 @@
                 </div> -->
                 <!--col-list-search-input-item end-->                                        
                 <!--col-list-search-input-item -->
-                <div class="col-list-search-input-item fl-wrap">
+                <!-- <div class="col-list-search-input-item fl-wrap">
                     <label>เรตติ้ง</label>
                     <div class="search-opt-container fl-wrap">
-                        <!-- Checkboxes -->
+                        Checkboxes
                         <ul class="fl-wrap filter-tags">
                             <li class="five-star-rating">
                                 <input id="check-aa2" type="checkbox" name="check" checked>
@@ -82,9 +82,9 @@
                                 <label for="check-aa4"><span class="listing-rating card-popup-rainingvis" data-starrating2="5"><span>3 Star</span></span></label>
                             </li>
                         </ul>
-                        <!-- Checkboxes end -->
+                        Checkboxes end
                     </div>
-                </div>
+                </div> -->
                 <!--col-list-search-input-item end-->
                 <!--col-list-search-input-item  -->                                         
                 <div class="col-list-search-input-item fl-wrap">

@@ -28,7 +28,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Form Examples | Notika - Notika Admin Template</title>
+    <title>Admin หน้าฟอร์มเพิ่มผู้ดูแลระบบ</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
