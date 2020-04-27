@@ -155,7 +155,7 @@
                                             <!-- เพิ่มปุุ่มห้องพัก -->
                                             <div class="hotel-facts fl-wrap">
                                                 <span class="add-button color-bg" style="float:none;font-size:13px">
-                                                <a href="dashboard-add-listing.php?id=<?php echo $_SESSION['id']; ?>&act=add_more" style="color:#FFFFFF">เพิ่มที่พัก</a></span>
+                                                <a href="dashboard-add-listing.php?id=<?php echo $_SESSION['id']; ?>&act=add_more" style="color:#FFFFFF">เพิ่มห้องพัก</a></span>
                                             </div>
                                         </div>
                                     </div>

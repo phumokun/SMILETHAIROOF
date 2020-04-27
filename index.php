@@ -116,26 +116,10 @@
                                                 INNER JOIN users as us ON us.id = addho.ref_id
                                                 LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id
                                             WHERE addho.status_hotel = 'ผ่านการตรวจสอบ' 
-                                            GROUP BY addho.ref_id";
+                                            GROUP BY addho.ref_id
+                                            ORDER BY addho.create_date DESC LIMIT 10";
 
-                                $result = mysqli_query($conn, $query); 
-                                $row = mysqli_fetch_array($result);
-
-                                // $id_hotel = $row['id_hotel'];
-
-                                // หาค่าเฉลี่ย Score Total และนับจำนวนผู้รีวิว
-                                // $query_rev = "SELECT *, round(AVG(score_to),1) as sot,
-                                //                         round(AVG(score_cl),1) as scl, 
-                                //                         round(AVG(score_es),1) as ses,
-                                //                         round(AVG(score_st),1) as sst,
-                                //                         round(AVG(score_fa),1) as sfa,
-                                //                         count(ref_hotel) as couh
-                                //                 FROM review_hotels as rev
-                                //                     INNER JOIN users_add_hotel as addho ON addho.id_hotel = rev.ref_hotel
-                                //                 WHERE rev.ref_hotel = $id_hotel";
-                                // $rr_rev = mysqli_query($conn, $query_rev);
-                                // $row_rev = mysqli_fetch_assoc($rr_rev)
-                                
+                                $result = mysqli_query($conn, $query);                                
 
                             ?>
                             <!-- portfolio start -->
@@ -148,17 +132,13 @@
                                             <!--light-carousel-->
                                             <div class="light-carousel">
                                                 <?php 
-                                                    $result = mysqli_query($conn, $query);
-                                                    $i=1;
-                                                    
                                                     while ($row = mysqli_fetch_array($result)) {
-                                                           
-                                                    $sot=$row['sot'];
-                                                    if ($sot != ''){
                                                         $sot=$row['sot'];
-                                                    } else {
-                                                        $sot='0';
-                                                    }  
+                                                        if ($sot != ''){
+                                                            $sot=$row['sot'];
+                                                        } else {
+                                                            $sot='0';
+                                                        }  
                                                 ?>
                                                 <!--slick-slide-item-->
                                                 <div class="slick-slide-item">
@@ -181,11 +161,7 @@
                                                     </div>
                                                 </div>
                                                 <?php 
-                                                    if($i>=6) {
-                                                    break;
-                                                    $i++;
-                                                    }
-                                                } 
+                                                    } 
                                                 ?>
                                                 <!--slick-slide-item end-->                                         
                                             </div>
@@ -222,7 +198,10 @@
                             <div class="text-carousel single-carousel fl-wrap">
                                 <?php 
                                     $query_re = "SELECT *,round(AVG(rev.score_to),1) as sot2 FROM review_hotels as rev                                            
-                                                    INNER JOIN users as us ON us.id = rev.ref_user";
+                                                        INNER JOIN users as us ON us.id = rev.ref_user
+                                                        INNER JOIN users_add_hotel as adho ON adho.ref_id = rev.ref_hotel
+                                                    GROUP BY rev.id_review
+                                                    ORDER BY rev.create_date_co DESC LIMIT 20";
 
                                     $result_re = mysqli_query($conn, $query_re); 
                                     while($row_re = mysqli_fetch_array($result_re)) {
@@ -232,7 +211,7 @@
                                     <div class="text-carousel-item">
                                         <div class="popup-avatar"><img src="images/img_users/<?php echo $row_re['picture_users']; ?>" alt=""></div>
                                         <div class="listing-rating card-popup-rainingvis" data-starrating2="<?php echo $row_re['sot2']; ?>"> </div>
-                                        <div class="review-owner fl-wrap"><?php echo $row_re['name']; ?></div>
+                                        <div class="review-owner fl-wrap"><?php echo $row_re['name']; ?> - <span><?php echo $row_re['name_hotel']; ?></span></div>
                                         <p> "<?php echo $row_re['comment_ho']; ?>"</p>
                                     </div>
                                 </div>

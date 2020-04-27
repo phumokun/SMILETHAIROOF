@@ -35,7 +35,8 @@
                     $query = "SELECT * FROM users_add_hotel as addho 
                                     INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
                                 WHERE addho.status_hotel = 'ผ่านการตรวจสอบ' 
-                                GROUP BY addho.ref_id";
+                                GROUP BY addho.ref_id
+                                ORDER BY addho.create_date DESC LIMIT 3";
 
                     $result = mysqli_query($conn, $query); 
 
@@ -46,11 +47,7 @@
                     <div class="widget-posts fl-wrap">
                         <ul>
                             <!-- กำหนดให้หยุด while loop -->
-                            <?php 
-                            $i=1;
-                            while ($row = mysqli_fetch_array($result)) { 
-                                
-                            ?>
+                            <?php while ($row = mysqli_fetch_array($result)) { ?>
                             <li class="clearfix">
                                 <a href="listing-single.php?id=<?php echo $row['ref_id']; ?>"  class="widget-posts-img"><img src="images/images_hotel_users/<?php echo $row['picture']; ?>" class="respimg" alt=""></a>
                                 <div class="widget-posts-descr">
@@ -59,11 +56,7 @@
                                 </div>
                             </li>
                             <?php 
-                                if($i>=2) {
-                                    break;
-                                    $i++;
-                                }
-                            } 
+                                } 
                             ?>
                         </ul>
                     </div>

@@ -12,8 +12,14 @@
                 <span>ยินดีต้อนรับคุณ</span>
                 <?php echo $_SESSION['name']; ?>
             </h3>
-        </div>
-        <a href="dashboard-add-listing.php?id=<?php echo $_SESSION['id']; ?>" class="ed-btn">เพิ่มโรงแรมของท่าน</a>                                        
+        </div>   
+        <?php if (isset($_SESSION['email'])) {?>
+            <?php if ($_SESSION['userlevel'] === 'hostel') { ?> 
+                <a href="dashboard-listing-table.php?id=<?php echo $_SESSION['id']; ?>" class="ed-btn">เพิ่มห้องพักของท่าน<span></span></a>
+            <?php } else {?>
+                <a href="dashboard-add-listing.php?id=<?php echo $_SESSION['id']; ?>" class="ed-btn">ลงทะเบียนที่พักของท่าน<span></span></a>
+            <?php } ?>   
+        <?php } ?>                                   
         <!-- <div class="user-stats fl-wrap">
             <ul>
                 <li>

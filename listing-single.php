@@ -678,10 +678,10 @@
                                                                                 INNER JOIN room_in_hotel as inho ON inho.ref_id = addho.ref_id
                                                                                 LEFT JOIN review_hotels as rev ON rev.ref_hotel = addho.ref_id
                                                                             WHERE addho.status_hotel = 'ผ่านการตรวจสอบ' 
-                                                                            GROUP BY addho.ref_id";
+                                                                            GROUP BY addho.ref_id
+                                                                            ORDER BY addho.create_date DESC LIMIT 3";
                                 
                                                                 $result = mysqli_query($conn, $query); 
-                                                                $i=0;
                                                                 while ($row = mysqli_fetch_array($result)) {      
                                                             ?>
                                                             <li class="clearfix">
@@ -694,11 +694,7 @@
                                                                 </div>
                                                             </li>
                                                             <?php 
-                                                                if($i>=3) {
-                                                                break;
-                                                                $i++;
-                                                                }
-                                                            } 
+                                                                } 
                                                             ?>
                                                         </ul>
                                                         <a class="widget-posts-link" href="listing2.php?act=see-all">โรงแรมทั้งหมด<i class="fal fa-long-arrow-right"></i> </a>
