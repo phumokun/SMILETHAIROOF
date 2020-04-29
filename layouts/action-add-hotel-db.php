@@ -30,33 +30,6 @@ session_start();
         // exit();
 
 
-        // upload images
-
-        // // set date for name img
-        // $date = date("Ymd_His");
-        // // set number random for name img
-        // $num_random = (mt_rand());
-
-        // $picture = (isset($_POST['picture']) ? $_POST['picture'] : '');
-        // // file name
-        // $upload = $_FILES['picture']['name'];
-        
-        // if ($upload !='') {
-        //     // upload where
-        //     $path = "../images/city/";
-        //     // strrchr for delete name img old 
-        //     $type = strrchr($_FILES['picture']['name'],".");
-        //     // create new name 
-        //     $newname = $num_random . $date . $type;
-        //     // copy img to folder
-        //     $path_copy = $path . $newname;
-        //     // upload ing name to table img_profile
-        //     move_uploaded_file($_FILES['picture']['tmp_name'], $path_copy);
-        // } else {
-        //     // ถ้าไม่มีการอัพรูปใหม่ จะใช้ชื่อไฟล์รูปเดิม
-        //     $newname = "";
-        // }
-
         $name_hotel = $_POST['name_hotel'];
         $type_hotel = $_POST['type_hotel'];
         $hotel_number = $_POST['hotel_number'];
@@ -68,8 +41,6 @@ session_start();
         $postal_code = $_POST['postal_code'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
-        // $longitude = $_POST['longitude'];
-        // $latitude = $_POST['latitude'];
         $detail_hotel = $_POST['detail_hotel'];
         // การแก้ Error หากผู้ใช้งานไม่ได้เลือก
         $option_hotel = "";
@@ -77,7 +48,6 @@ session_start();
                 $option_hotel = implode(",",$_POST['option_hotel']);
             }
 
-        // LIMIT 1 for check user 
         $add_hotel ="INSERT INTO users_add_hotel (ref_id,
                                                     name_hotel,
                                                     type_hotel,

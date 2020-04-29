@@ -34,7 +34,7 @@ session_start();
                 
             $query = "UPDATE users 
                 SET password = '" . md5($password) . "'
-                WHERE password = '" . $current_password . "'";  
+                WHERE id = '" . $id . "' ";  
 
             $result = mysqli_query($conn, $query);
 
