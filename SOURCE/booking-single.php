@@ -123,7 +123,7 @@
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <label>เบอร์โทร<i class="far fa-phone"></i>  </label>
-                                                                    <input type="text" name="phone" placeholder="87945612233" value="<?php echo $_SESSION['phone_user']; ?>" readonly>
+                                                                    <input type="text" name="phone" value="<?php echo $_SESSION['phone_user']; ?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <!-- <div class="log-massage">Existing Customer? <a href="#" class="modal-open">Click here to login</a></div> -->
